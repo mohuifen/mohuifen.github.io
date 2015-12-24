@@ -3,21 +3,30 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hello World | 秋儿</title>
+  <title>NSLayoutConstraint 的妙用(贵金属） | 秋儿</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+  <meta name="description" content="时间：2015年12月22日
+作者：秋儿（lvruifei@foxmail.com）
+贵金属项目，是第一次使用 storyboard 开发，以下是初次接触 NSLayoutConstraint，遇到的问题：
+问题1：用 storyboard 搭建的 UI，在 tableView 的 header 中的控件的高度是不固定的，条件1下控件高90，条件2下控件高45,所以就考虑用代码控制控件的高度。
+在">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2015/12/23/hello-world/index.html">
+<meta property="og:title" content="NSLayoutConstraint 的妙用(贵金属）">
+<meta property="og:url" content="http://yoursite.com/2015/12/22/NSLayoutConstraint-的妙用-贵金属）/index.html">
 <meta property="og:site_name" content="秋儿">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2015-12-24T03:59:55.000Z">
+<meta property="og:description" content="时间：2015年12月22日
+作者：秋儿（lvruifei@foxmail.com）
+贵金属项目，是第一次使用 storyboard 开发，以下是初次接触 NSLayoutConstraint，遇到的问题：
+问题1：用 storyboard 搭建的 UI，在 tableView 的 header 中的控件的高度是不固定的，条件1下控件高90，条件2下控件高45,所以就考虑用代码控制控件的高度。
+在">
+<meta property="og:updated_time" content="2015-12-24T04:02:36.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="NSLayoutConstraint 的妙用(贵金属）">
+<meta name="twitter:description" content="时间：2015年12月22日
+作者：秋儿（lvruifei@foxmail.com）
+贵金属项目，是第一次使用 storyboard 开发，以下是初次接触 NSLayoutConstraint，遇到的问题：
+问题1：用 storyboard 搭建的 UI，在 tableView 的 header 中的控件的高度是不固定的，条件1下控件高90，条件2下控件高45,所以就考虑用代码控制控件的高度。
+在">
   
     <link rel="alternative" href="/atom.xml" title="秋儿" type="application/atom+xml">
   
@@ -63,14 +72,14 @@ Quick">
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-NSLayoutConstraint-的妙用-贵金属）" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/12/23/hello-world/" class="article-date">
-  <time datetime="2015-12-23T03:13:33.000Z" itemprop="datePublished">2015-12-23</time>
+    <a href="/2015/12/22/NSLayoutConstraint-的妙用-贵金属）/" class="article-date">
+  <time datetime="2015-12-22T04:01:35.000Z" itemprop="datePublished">2015-12-22</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/教程/">教程</a>
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
   </div>
 
   </div>
@@ -81,7 +90,7 @@ Quick">
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      NSLayoutConstraint 的妙用(贵金属）
     </h1>
   
 
@@ -89,23 +98,34 @@ Quick">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start"><a href="#Quick_Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create_a_new_post"><a href="#Create_a_new_post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server"><a href="#Run_server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files"><a href="#Generate_static_files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites"><a href="#Deploy_to_remote_sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <p><br><br><strong>时间：2015年12月22日</strong></p>
+<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
+<p><br><br>贵金属项目，是第一次使用 storyboard 开发，以下是初次接触 NSLayoutConstraint，遇到的问题：</p>
+<h4 id="u95EE_u98981_uFF1A"><a href="#u95EE_u98981_uFF1A" class="headerlink" title="问题1："></a>问题1：</h4><p>用 storyboard 搭建的 UI，在 tableView 的 header 中的控件的高度是不固定的，条件1下控件高90，条件2下控件高45,所以就考虑用代码控制控件的高度。</p>
+<p>在用代码设置了控件的高度和 header 的高度后，发现效果并非如预期所想。在 storyboard 里面设置了90，在代码中设置了45，显示时还是90，代码更改高度没变化。</p>
+<p><font color="brown"><strong>原因：</strong></font>UIButton 的 buttonType<br>在 storyboard 里面设置了控件的高度，并且添加了约束，其中便有高度的约束，约束有了，代码更改控件的高度，并不会有效果。</p>
+<p><font color="green"><strong>解决方案：</strong></font><br>NSLayoutConstraint 是可以设置成属性的，在 storyboard 中添加控件高度约束的属性的连线，连接到相对应的文件中。在文件中更改该属性的值，如下：</p>
+<pre><code>@property (weak, nonatomic) IBOutlet NSLayoutConstraint *surplusHeightLayout;
+
+
+self.surplusHeightLayout.constant = 45;
+</code></pre><h4 id="u95EE_u98982_uFF1A"><a href="#u95EE_u98982_uFF1A" class="headerlink" title="问题2："></a>问题2：</h4><p>用 storyboard 搭建的 UI，控件之间有分割线，UI设计师设计的是1像素，所以需要设置0.5高。但是在Xcode7 的 storyboard 中无法设置带有”.5”的数字。虽然可以像上面的问题的解决方案那样处理，可以达到效果，但是分割线太多，那样处理工作量太大，还会有很多冗余的代码。</p>
+<p><font color="green"><strong>解决方案：</strong></font><br> 创建 NSLayoutConstraint 的子类NSLayoutConstraintHairline，在.m 中添加以下代码：</p>
+<pre><code>- (void)awakeFromNib {
+    [super awakeFromNib];
+    if (self.constant == 1) {
+       self.constant = 0.5/[UIScreen mainScreen].scale;
+    }
+}
+</code></pre><p>在 storyboard 中设置分割线的高为任意值，选中分割线的高的约束，修改其类型NSLayoutConstraint为创建的NSLayoutConstraintHairline即可达到目的。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/12/23/hello-world/" data-id="ciijqm88u000frhnecwudwueh" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/12/22/NSLayoutConstraint-的妙用-贵金属）/" data-id="ciijqm88y000irhneyuz3bjq5" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/贵金属/">贵金属</a></li></ul>
 
     </footer>
   </div>
@@ -113,19 +133,19 @@ Quick">
     
 <nav id="article-nav">
   
-    <a href="/2015/12/23/使用-hexo-搭建博客/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2015/12/23/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          使用 hexo 搭建博客
+          Hello World
         
       </div>
     </a>
   
   
-    <a href="/2015/12/22/NSLayoutConstraint-的妙用-贵金属）/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/11/20/Bug-小记（贵金属）/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">NSLayoutConstraint 的妙用(贵金属）</div>
+      <div class="article-nav-title">Bug 小记（贵金属）</div>
     </a>
   
 </nav>

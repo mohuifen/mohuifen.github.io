@@ -4,7 +4,7 @@ date: 2015-11-20 11:13:33
 
 categories: iOS
 
-tags: Bug
+tags: [Bug,贵金属]
 ---
 
 
