@@ -61,88 +61,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-Bug-小记（贵金属）" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/12/24/Bug-小记（贵金属）/" class="article-date">
-  <time datetime="2015-12-24T03:22:29.000Z" itemprop="datePublished">2015-12-24</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/24/Bug-小记（贵金属）/">Bug 小记（贵金属）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="date_3A_2015-11-20_11_3A13_3A33"><a href="#date_3A_2015-11-20_11_3A13_3A33" class="headerlink" title="date: 2015-11-20 11:13:33"></a>date: 2015-11-20 11:13:33</h2><h2 id="tags_3A"><a href="#tags_3A" class="headerlink" title="tags:"></a>tags:</h2><p><br><br><strong>时间：2015年11月20日</strong></p>
-<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p><br><br>最近在修复 APP 的 Bug，遇到了几个因对 SDK 不熟 造成的 Bug。如下：<br><br></p>
-<p>####Bug1：点击获取验证码后，没有进行倒计时，且不能再次点击</p>
-<p>使用 GCD 写的倒计时，源代码：</p>
-<pre><code>_isCountDown = YES;
-__block int timeout=kCountdownTime; //倒计时时间
-dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
-dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
-dispatch_source_set_event_handler(_timer, ^{
-    if(timeout&lt;=0){ //倒计时结束，关闭
-        dispatch_source_cancel(_timer);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.getSmsCodeBtn setTitle:@&quot;重新获取&quot; forState:UIControlStateNormal];
-
-            [self.getSmsCodeBtn setTitleColor:ColorWithHexString(GJS_COLOR_LOGINBTN_AVAILABLE_NORMAL) forState:UIControlStateNormal];
-
-            [self.getSmsCodeBtn setEnabled:YES];
-            _isCountDown = NO;
-        });
-    }else{
-        NSString *strTime = [NSString stringWithFormat:@&quot;%ds后重发&quot;,timeout];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.getSmsCodeBtn setTitle:strTime forState:UIControlStateNormal];
-
-            [self.getSmsCodeBtn setTitleColor:ColorWithHexString(GJS_COLOR_GETCODEBTN_UNAVAILABLE) forState:UIControlStateNormal];
-        });
-        timeout--;
-
-    }
-});
-dispatch_resume(_timer);
-</code></pre><p>如上所示的源码，在 iOS7 上倒计时按钮上的文字不会变化，在 iOS 8,iOS9 上都是没问题的，我也郁闷了很久。各种百度未果后转向 Google,也有人遇到这样的问题，但是只搜索到一篇真正能解决这个问题的文章 <a href="http://blog.csdn.net/zhangyanshen/article/details/46910515" title="http://blog.csdn.net/zhangyanshen/article/details/46910515" target="_blank" rel="external">http://blog.csdn.net/zhangyanshen/article/details/46910515</a></p>
-<font color="green"><strong>解决方案：</strong></font>
-
-<pre><code>[sendAuthCodeBtn setTitle:@&quot;发送验证码&quot; forState:UIControlStateDisabled]; 
-</code></pre><p>关键在于这行代码。设置了禁用状态下的文字。顺利解决了 这个 Bug。</p>
-<p><br></p>
-<p>####Bug2：倒计时 UIButton 上的文字变更会有闪烁效果<br><br><br>UIButton 设置 title时会闪烁。</p>
-<p><font color="brown"><strong>原因：</strong></font>UIButton 的 buttonType 是 System 类型时会出现该种问题</p>
-<p><font color="green"><strong>解决方案：</strong></font>UIButton 的 buttonType 设置为 Custom 类型时不会出现闪烁。</p>
-<p><br></p>
-<p>####Bug3：在工程中添加plist 文件，用代码对其进行写入操作，在模拟器中按代码执行，但在真机上plist中内容未改变<br><br><br>plist 文件中是一个数组，元素是多个字典，在模拟器上运行一切正常，但测试人员用真机测试时发现问题，无法写入到 plist 文件中。</p>
-<p><font color="brown"><strong>原因：</strong></font> 打包在 ipa 的文件是无法更改的。一句话：无权限修改（知道真相的我眼泪掉下来~)，只可进行读取操作。</p>
-<p><font color="green"><strong>解决方案：</strong></font>在 app 启动的时候判断是否在 Document 文件夹下存在相同的 plsit 文件。 不存在，获取沙盒下 plist 文件中的内容，并写入Document 文件夹下的 plsit 文件。存在则不做任何处理。（之所以选择这种方式而不选择直接将内容用代码写入 Document 文件夹下来解决这个问题，是因为个人认为在开发时方便对工程中plsit 文件内容的更改）</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/12/24/Bug-小记（贵金属）/" data-id="ciijooxi300007bneligrdgf9" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
     <article id="post-使用-hexo-搭建博客" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/12/23/使用-hexo-搭建博客/" class="article-date">
@@ -207,7 +125,7 @@ dispatch_resume(_timer);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/12/23/使用-hexo-搭建博客/" data-id="ciijooxii00017bneel1ffjk2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/12/23/使用-hexo-搭建博客/" data-id="ciijors4o000391ne8rii7u0j" class="article-share-link">Share</a>
       
       
     </footer>
@@ -252,9 +170,93 @@ dispatch_resume(_timer);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/12/23/hello-world/" data-id="ciijooxil00027bneimzksxdt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/12/23/hello-world/" data-id="ciijors4u000491ne7xzfifdc" class="article-share-link">Share</a>
       
       
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Bug-小记（贵金属）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/11/20/Bug-小记（贵金属）/" class="article-date">
+  <time datetime="2015-11-20T03:13:33.000Z" itemprop="datePublished">2015-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/20/Bug-小记（贵金属）/">Bug 小记（贵金属）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><br><br><strong>时间：2015年11月20日</strong></p>
+<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
+<p><br><br>最近在修复 APP 的 Bug，遇到了几个因对 SDK 不熟 造成的 Bug。如下：<br><br></p>
+<p>####Bug1：点击获取验证码后，没有进行倒计时，且不能再次点击</p>
+<p>使用 GCD 写的倒计时，源代码：</p>
+<pre><code>_isCountDown = YES;
+__block int timeout=kCountdownTime; //倒计时时间
+dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
+dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
+dispatch_source_set_event_handler(_timer, ^{
+    if(timeout&lt;=0){ //倒计时结束，关闭
+        dispatch_source_cancel(_timer);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.getSmsCodeBtn setTitle:@&quot;重新获取&quot; forState:UIControlStateNormal];
+
+            [self.getSmsCodeBtn setTitleColor:ColorWithHexString(GJS_COLOR_LOGINBTN_AVAILABLE_NORMAL) forState:UIControlStateNormal];
+
+            [self.getSmsCodeBtn setEnabled:YES];
+            _isCountDown = NO;
+        });
+    }else{
+        NSString *strTime = [NSString stringWithFormat:@&quot;%ds后重发&quot;,timeout];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.getSmsCodeBtn setTitle:strTime forState:UIControlStateNormal];
+
+            [self.getSmsCodeBtn setTitleColor:ColorWithHexString(GJS_COLOR_GETCODEBTN_UNAVAILABLE) forState:UIControlStateNormal];
+        });
+        timeout--;
+
+    }
+});
+dispatch_resume(_timer);
+</code></pre><p>如上所示的源码，在 iOS7 上倒计时按钮上的文字不会变化，在 iOS 8,iOS9 上都是没问题的，我也郁闷了很久。各种百度未果后转向 Google,也有人遇到这样的问题，但是只搜索到一篇真正能解决这个问题的文章 <a href="http://blog.csdn.net/zhangyanshen/article/details/46910515" title="http://blog.csdn.net/zhangyanshen/article/details/46910515" target="_blank" rel="external">http://blog.csdn.net/zhangyanshen/article/details/46910515</a></p>
+<font color="green"><strong>解决方案：</strong></font>
+
+<pre><code>[sendAuthCodeBtn setTitle:@&quot;发送验证码&quot; forState:UIControlStateDisabled]; 
+</code></pre><p>关键在于这行代码。设置了禁用状态下的文字。顺利解决了 这个 Bug。</p>
+<p><br></p>
+<p>####Bug2：倒计时 UIButton 上的文字变更会有闪烁效果<br><br><br>UIButton 设置 title时会闪烁。</p>
+<p><font color="brown"><strong>原因：</strong></font>UIButton 的 buttonType 是 System 类型时会出现该种问题</p>
+<p><font color="green"><strong>解决方案：</strong></font>UIButton 的 buttonType 设置为 Custom 类型时不会出现闪烁。</p>
+<p><br></p>
+<p>####Bug3：在工程中添加plist 文件，用代码对其进行写入操作，在模拟器中按代码执行，但在真机上plist中内容未改变<br><br><br>plist 文件中是一个数组，元素是多个字典，在模拟器上运行一切正常，但测试人员用真机测试时发现问题，无法写入到 plist 文件中。</p>
+<p><font color="brown"><strong>原因：</strong></font> 打包在 ipa 的文件是无法更改的。一句话：无权限修改（知道真相的我眼泪掉下来~)，只可进行读取操作。</p>
+<p><font color="green"><strong>解决方案：</strong></font>在 app 启动的时候判断是否在 Document 文件夹下存在相同的 plsit 文件。 不存在，获取沙盒下 plist 文件中的内容，并写入Document 文件夹下的 plsit 文件。存在则不做任何处理。（之所以选择这种方式而不选择直接将内容用代码写入 Document 文件夹下来解决这个问题，是因为个人认为在开发时方便对工程中plsit 文件内容的更改）</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/11/20/Bug-小记（贵金属）/" data-id="ciijors3v000091neb7g3o2g6" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/贵金属/">贵金属</a></li></ul>
+
     </footer>
   </div>
   
@@ -270,14 +272,28 @@ dispatch_resume(_timer);
     
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/贵金属/">贵金属</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/贵金属/" style="font-size: 10px;">贵金属</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -289,15 +305,15 @@ dispatch_resume(_timer);
       <ul>
         
           <li>
-            <a href="/2015/12/24/Bug-小记（贵金属）/">Bug 小记（贵金属）</a>
-          </li>
-        
-          <li>
             <a href="/2015/12/23/使用-hexo-搭建博客/">使用 hexo 搭建博客</a>
           </li>
         
           <li>
             <a href="/2015/12/23/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/20/Bug-小记（贵金属）/">Bug 小记（贵金属）</a>
           </li>
         
       </ul>
