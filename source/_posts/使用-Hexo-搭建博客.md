@@ -1,5 +1,7 @@
-
 title: 使用 hexo 搭建博客
+date: 2015-12-23 11:39:45
+categories: 教程
+tags: hexo
 ---
 <br>
 **时间：2015年12月23日**
