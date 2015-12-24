@@ -3,17 +3,36 @@
 <head>
   <meta charset="utf-8">
   
-  <title>秋儿</title>
+  <title>Bug 小记（贵金属） | 秋儿</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="秋儿">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="时间：2015年11月20日
+作者：秋儿（lvruifei@foxmail.com）
+最近在修复 APP 的 Bug，遇到了几个因对 SDK 不熟 造成的 Bug。如下：
+Bug1：点击获取验证码后，没有进行倒计时，且不能再次点击使用 GCD 写的倒计时，源代码：
+_isCountDown = YES;
+__block int timeout=kCountdownTime; //倒计时时间
+dis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bug 小记（贵金属）">
+<meta property="og:url" content="http://yoursite.com/2015/11/20/Bug-小记（贵金属）/index.html">
 <meta property="og:site_name" content="秋儿">
-<meta property="og:description">
+<meta property="og:description" content="时间：2015年11月20日
+作者：秋儿（lvruifei@foxmail.com）
+最近在修复 APP 的 Bug，遇到了几个因对 SDK 不熟 造成的 Bug。如下：
+Bug1：点击获取验证码后，没有进行倒计时，且不能再次点击使用 GCD 写的倒计时，源代码：
+_isCountDown = YES;
+__block int timeout=kCountdownTime; //倒计时时间
+dis">
+<meta property="og:updated_time" content="2015-12-24T03:33:28.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="秋儿">
-<meta name="twitter:description">
+<meta name="twitter:title" content="Bug 小记（贵金属）">
+<meta name="twitter:description" content="时间：2015年11月20日
+作者：秋儿（lvruifei@foxmail.com）
+最近在修复 APP 的 Bug，遇到了几个因对 SDK 不熟 造成的 Bug。如下：
+Bug1：点击获取验证码后，没有进行倒计时，且不能再次点击使用 GCD 写的倒计时，源代码：
+_isCountDown = YES;
+__block int timeout=kCountdownTime; //倒计时时间
+dis">
   
     <link rel="alternative" href="/atom.xml" title="秋儿" type="application/atom+xml">
   
@@ -59,128 +78,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-使用-hexo-搭建博客" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/12/23/使用-hexo-搭建博客/" class="article-date">
-  <time datetime="2015-12-23T11:50:49.000Z" itemprop="datePublished">2015-12-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/23/使用-hexo-搭建博客/">使用 hexo 搭建博客</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><br><br><strong>时间：2015年12月23日</strong></p>
-<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p><br></p>
-<h4 id="u914D_u7F6E_u73AF_u5883"><a href="#u914D_u7F6E_u73AF_u5883" class="headerlink" title="配置环境"></a>配置环境</h4><p> 安装 homebrew：</p>
-<pre><code>ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
-</code></pre><p>安装node.js：</p>
-<pre><code>brew install node
-</code></pre><p>安装 hexo:</p>
-<pre><code>npm install hexo -g
-</code></pre><p>执行init命令初始化hexo到你指定的目录</p>
-<pre><code>hexo init &lt;folder&gt;
-</code></pre><p>进入文件夹</p>
-<pre><code>cd &lt;folder&gt;
-</code></pre><p>然后运行</p>
-<pre><code>npm install //这句应该用不到
-</code></pre><p>自动根据当前目录下文件,生成静态网页</p>
-<pre><code>hexo generate
-</code></pre><p>运行本地服务</p>
-<pre><code>hexo server 
-</code></pre><p>Done！<br><a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a></p>
-<p>//停止本地服务：Press Ctrl+C to stop</p>
-<p><br></p>
-<h4 id="u6DFB_u52A0_u6587_u7AE0"><a href="#u6DFB_u52A0_u6587_u7AE0" class="headerlink" title="添加文章"></a>添加文章</h4><p>创建文章文件名</p>
-<pre><code>hexo new &quot;&quot;
-</code></pre><p>生成静态网页</p>
-<pre><code>hexo generate
-</code></pre><p>运行本地服务</p>
-<pre><code>hexo server
-</code></pre><h3 id="u90E8_u7F72_u5230_Github"><a href="#u90E8_u7F72_u5230_Github" class="headerlink" title="部署到 Github"></a>部署到 Github</h3><p>这篇文章很详细<br><a href="http://jingyan.baidu.com/article/d8072ac47aca0fec95cefd2d.html" target="_blank" rel="external">http://jingyan.baidu.com/article/d8072ac47aca0fec95cefd2d.html</a></p>
-<h6 id="u5173_u952E_u5DE5_u4F5C"><a href="#u5173_u952E_u5DE5_u4F5C" class="headerlink" title="关键工作"></a>关键工作</h6><p>配置 _config.yml 文件</p>
-<pre><code>deploy:
- type: git
- repository: https://github.com/XXXXXX/XXXXXX.github.io.git
- branch: master
-</code></pre><p>生成网页</p>
-<pre><code>hexo generate
-</code></pre><p>部署</p>
-<pre><code>hexo deploy
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/12/23/使用-hexo-搭建博客/" data-id="ciijp31cx0005b5nepsce7pif" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/12/23/hello-world/" class="article-date">
-  <time datetime="2015-12-23T10:06:05.000Z" itemprop="datePublished">2015-12-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/23/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start"><a href="#Quick_Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create_a_new_post"><a href="#Create_a_new_post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server"><a href="#Run_server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files"><a href="#Generate_static_files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites"><a href="#Deploy_to_remote_sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/12/23/hello-world/" data-id="ciijp31d20006b5newdobrpcr" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Bug-小记（贵金属）" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Bug-小记（贵金属）" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/11/20/Bug-小记（贵金属）/" class="article-date">
   <time datetime="2015-11-20T03:13:33.000Z" itemprop="datePublished">2015-11-20</time>
@@ -197,8 +95,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/20/Bug-小记（贵金属）/">Bug 小记（贵金属）</a>
+    <h1 class="article-title" itemprop="name">
+      Bug 小记（贵金属）
     </h1>
   
 
@@ -263,11 +161,24 @@ dispatch_resume(_timer);
     </footer>
   </div>
   
+    
+<nav id="article-nav">
+  
+    <a href="/2015/12/23/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Hello World
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
 </article>
 
-
-  
-  
 </section>
         
           <aside id="sidebar">
