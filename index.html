@@ -125,7 +125,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/12/23/使用-hexo-搭建博客/" data-id="ciijp31cx0005b5nepsce7pif" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/12/23/使用-hexo-搭建博客/" data-id="ciijpday500092ineg3hx67je" class="article-share-link">Share</a>
       
       
     </footer>
@@ -170,7 +170,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/12/23/hello-world/" data-id="ciijp31d20006b5newdobrpcr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/12/23/hello-world/" data-id="ciijpday9000a2inerbe90ige" class="article-share-link">Share</a>
       
       
     </footer>
@@ -255,10 +255,143 @@ dispatch_resume(_timer);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/11/20/Bug-小记（贵金属）/" data-id="ciijp31ce0000b5netnwgq3g2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/11/20/Bug-小记（贵金属）/" data-id="ciijpdaxo00002ine2m928k5q" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/贵金属/">贵金属</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-指纹解锁" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/09/16/指纹解锁/" class="article-date">
+  <time datetime="2015-09-16T03:39:45.000Z" itemprop="datePublished">2015-09-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/09/16/指纹解锁/">指纹解锁iOS</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><br><br><strong>时间：2015年9月16日</strong></p>
+<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
+<p><br><br>iOS8 指纹解锁的API，<a href="http://www.bubuko.com/infodetail-726115.html" target="_blank" rel="external">这篇文章</a>解释的非常清楚。  </p>
+<p>本文主要针对在实际使用中遇到的问题及解决方法，假定已经了解指纹解锁API，如不了解API,请先移步<a href="http://www.bubuko.com/infodetail-726115.html" target="_blank" rel="external">指纹解锁的API说明</a></p>
+<p>项目之前一直使用的是手势密码，近来要增加 iOS8 新出的指纹解锁功能。需求是在设置中添加指纹解锁开关  </p>
+<h4 id="u95EE_u98981_uFF1A"><a href="#u95EE_u98981_uFF1A" class="headerlink" title="问题1："></a>问题1：</h4><p>在个人设置里面，添加指纹解锁开关项，此项仅在支持TouchID 的设备中出现<br>很好，百度了下，得到了如下解决方案  </p>
+<font color="green"><strong>解决方案：</strong></font>
+
+
+<pre><code>LAContext *context = [LAContext new];
+NSError *error = [NSError new];
+BOOL isAvailable = [context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&amp;error];
+</code></pre><p>这是api给出的判断TouchID是否可用的方法，isAvailable == Yes 说明 TouchID 可用，反之，则不可用。<br>但是，当我满心欢喜的使用的时候，问题来了</p>
+<h4 id="u95EE_u98982_uFF1A"><a href="#u95EE_u98982_uFF1A" class="headerlink" title="问题2："></a>问题2：</h4><p>在6 Plus，未设置手机解锁密码或没有可用的指纹时，用上面的方法判断 isAvailable == No,瞬间心都碎了。<br>这里依然有解决方案</p>
+<font color="green"><strong>解决方案：</strong></font>
+
+<pre><code>if (!isAvailable) {
+    NSString *str = nil;
+    switch (error.code) {
+           case LAErrorTouchIDNotEnrolled://无可用指纹
+
+        case LAErrorPasscodeNotSet://设备未开启密码
+        {
+            isAvailable = YES;
+            break;
+        }
+        case LAErrorTouchIDNotAvailable:
+        default:
+        {
+            isAvailable = NO;
+            break;
+        }
+
+    }
+}
+</code></pre><p>虽然依然把这个问题解决了。but，又产生了新的问题。</p>
+<h4 id="u95EE_u98983_uFF1A"><a href="#u95EE_u98983_uFF1A" class="headerlink" title="问题3："></a>问题3：</h4><p>使用上述方法，在 iPod Touch 等不支持 TouchID 的设备，未设置手机解锁密码情况下运行时，设置中的指纹解锁开关项居然出现了。</p>
+<p>单步调试之，在 error.code 的 switch 中，进入的是 case LAErrorPasscodeNotSet://设备未开启密码，执行了isAvailable = YES;。然，大胆猜测之，api 居然先判断的是有没有开启密码而不是设备类型和或系统是否支持，这使我彻底无语~~~~</p>
+<p>此时，我再也不相信API了，果断自己写判断吧。</p>
+<font color="green"><strong>解决方案：</strong></font>
+
+
+<pre><code>// 硬件设备不支持，或系统版本不支持 指纹解锁
+if (![Utils isSystemModelSupportTouchID] || ![Utils isSystemVersionMoreThanVersion:7.0]) {
+    return NO;
+}
+
+LAContext *context = [LAContext new];
+NSError *error = [NSError new];
+BOOL isDeviceSupportTouchId = [context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&amp;error];
+
+if (!isDeviceSupportTouchId) {
+
+    //不支持指纹识别
+
+    switch (error.code) {
+
+        case LAErrorTouchIDNotEnrolled:
+
+        case LAErrorPasscodeNotSet:
+        {
+            isDeviceSupportTouchId = YES;
+            break;
+        }
+        case LAErrorTouchIDNotAvailable:
+        default:
+        {
+            isDeviceSupportTouchId = NO;
+            break;
+        }
+    }
+}
+
+
+return isDeviceSupportTouchId;
+</code></pre><p>硬件设备判断上花了一小点功夫，版本判断显然很简单。</p>
+<p><strong>硬件设备判断思路：</strong></p>
+<p>1.获取设备类型字符串，如iPhone 5c,iPhone 6；<br>2.判断设备类型字符串是包含iPhone ,iPod , iPad，是iPhone 则截取设备类型字符串中的第一位数字，iPad 有分mini 和Air, 截取设备类型字符串中的第一位数字，然后数字对比判断是否支持TouchID。</p>
+<p>至此，TouchID 告一段落！在此，附上本文中的 Demo 地址：<a href="https://github.com/mohuifen/LRFFingerPrintManager" target="_blank" rel="external">LRFFingerPrintManager</a>,欢迎各位读者朋友提出建议。。</p>
+<p><br></p>
+<hr>
+<hr>
+<hr>
+<p><br><br><strong>时间：2015年12月23日</strong></p>
+<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
+<p><br><br>最近 iOS9.2 系统正式发布，有反应说App中使用指纹解锁在 iOS9.2 上会导致App崩溃。故，开始了查找 bug 之旅。</p>
+<h4 id="u95EE_u98984_uFF1A"><a href="#u95EE_u98984_uFF1A" class="headerlink" title="问题4："></a>问题4：</h4><p>升级手机9.2 版本后，使用指纹解锁，果然是崩溃了。手指放到 home 键上后，App 卡死，无法点击页面上的控件，大概3，4秒后闪退至桌面。</p>
+<p>由于测试机都没有升级，故先看了相关的代码，注意到在验证指纹成功后，                使用dispatch_sync(dispatch_get_main_queue(), ^{ }）来调用主线程处理一些工作。遂，猜想应该是这里出了问题，一般应使用dispatch_async,而非dispatch_sync。但不敢肯定，因为无法解释这样写就会崩溃，而且之前一直都是可以正常使用的。</p>
+<font color="brown"><strong>原因：</strong></font><br>iOS9.2 做了优化，使体验更流畅。可能在dispatch_async和dispatch_sync下了刀。<br><br><font color="green"><strong>解决方案：</strong></font>
+
+<p>待用9.2系统的真机运行时，半信半疑的把其改用了dispatch_async，并没有崩溃。但使用dispatch_sync确实崩溃了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/09/16/指纹解锁/" data-id="ciijpday100052inegtw478rx" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/指纹解锁/">指纹解锁</a></li></ul>
 
     </footer>
   </div>
@@ -276,7 +409,7 @@ dispatch_resume(_timer);
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -285,7 +418,7 @@ dispatch_resume(_timer);
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/贵金属/">贵金属</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/指纹解锁/">指纹解锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贵金属/">贵金属</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -294,7 +427,7 @@ dispatch_resume(_timer);
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/贵金属/" style="font-size: 10px;">贵金属</a>
+      <a href="/tags/指纹解锁/" style="font-size: 10px;">指纹解锁</a> <a href="/tags/贵金属/" style="font-size: 10px;">贵金属</a>
     </div>
   </div>
 
@@ -303,7 +436,7 @@ dispatch_resume(_timer);
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -324,6 +457,10 @@ dispatch_resume(_timer);
         
           <li>
             <a href="/2015/11/20/Bug-小记（贵金属）/">Bug 小记（贵金属）</a>
+          </li>
+        
+          <li>
+            <a href="/2015/09/16/指纹解锁/">指纹解锁iOS</a>
           </li>
         
       </ul>
