@@ -13,6 +13,7 @@ tags: [贵金属]
 <br>
 贵金属项目，是第一次使用 storyboard 开发，以下是初次接触 NSLayoutConstraint，遇到的问题：
 
+<!-- more -->
 ####	问题1：
 用 storyboard 搭建的 UI，在 tableView 的 header 中的控件的高度是不固定的，条件1下控件高90，条件2下控件高45,所以就考虑用代码控制控件的高度。
 

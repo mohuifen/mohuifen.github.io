@@ -8,28 +8,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="时间：2015年12月22日
 作者：秋儿（lvruifei@foxmail.com）
-贵金属项目，是第一次使用 storyboard 开发，以下是初次接触 NSLayoutConstraint，遇到的问题：
-问题1：用 storyboard 搭建的 UI，在 tableView 的 header 中的控件的高度是不固定的，条件1下控件高90，条件2下控件高45,所以就考虑用代码控制控件的高度。
-在">
+贵金属项目，是第一次使用 storyboard 开发，以下是初次接触 NSLayoutConstraint，遇到的问题：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NSLayoutConstraint 的妙用(贵金属）">
 <meta property="og:url" content="http://yoursite.com/2015/12/22/NSLayoutConstraint-的妙用-贵金属）/index.html">
 <meta property="og:site_name" content="秋儿">
 <meta property="og:description" content="时间：2015年12月22日
 作者：秋儿（lvruifei@foxmail.com）
-贵金属项目，是第一次使用 storyboard 开发，以下是初次接触 NSLayoutConstraint，遇到的问题：
-问题1：用 storyboard 搭建的 UI，在 tableView 的 header 中的控件的高度是不固定的，条件1下控件高90，条件2下控件高45,所以就考虑用代码控制控件的高度。
-在">
-<meta property="og:updated_time" content="2015-12-24T04:02:36.000Z">
+贵金属项目，是第一次使用 storyboard 开发，以下是初次接触 NSLayoutConstraint，遇到的问题：">
+<meta property="og:updated_time" content="2015-12-25T02:32:19.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NSLayoutConstraint 的妙用(贵金属）">
 <meta name="twitter:description" content="时间：2015年12月22日
 作者：秋儿（lvruifei@foxmail.com）
-贵金属项目，是第一次使用 storyboard 开发，以下是初次接触 NSLayoutConstraint，遇到的问题：
-问题1：用 storyboard 搭建的 UI，在 tableView 的 header 中的控件的高度是不固定的，条件1下控件高90，条件2下控件高45,所以就考虑用代码控制控件的高度。
-在">
-  
-    <link rel="alternative" href="/atom.xml" title="秋儿" type="application/atom+xml">
+贵金属项目，是第一次使用 storyboard 开发，以下是初次接触 NSLayoutConstraint，遇到的问题：">
   
   
     <link rel="icon" href="/favicon.png">
@@ -53,6 +45,8 @@
 		  <h1 class="header-author"><a href="/">秋儿</a></h1>
 		</hgroup>
 
+		
+		<p class="header-subtitle">iOS 开发</p>
 		
 
 		
@@ -114,6 +108,8 @@
 							
 								<a class="github" target="_blank" href="https://github.com/mohuifen" title="github">github</a>
 					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
 						</div>
 					</nav>
 				</section>
@@ -166,6 +162,8 @@
 			  <h1 class="header-author">秋儿</h1>
 			</hgroup>
 			
+			<p class="header-subtitle">iOS 开发</p>
+			
 			<nav class="header-menu">
 				<ul>
 				
@@ -180,6 +178,8 @@
 				<div class="social">
 					
 						<a class="github" target="_blank" href="https://github.com/mohuifen" title="github">github</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
 			        
 				</div>
 			</nav>
@@ -231,6 +231,7 @@
         <p><br><br><strong>时间：2015年12月22日</strong></p>
 <p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
 <p><br><br>贵金属项目，是第一次使用 storyboard 开发，以下是初次接触 NSLayoutConstraint，遇到的问题：</p>
+<a id="more"></a>
 <h4 id="u95EE_u98981_uFF1A"><a href="#u95EE_u98981_uFF1A" class="headerlink" title="问题1："></a>问题1：</h4><p>用 storyboard 搭建的 UI，在 tableView 的 header 中的控件的高度是不固定的，条件1下控件高90，条件2下控件高45,所以就考虑用代码控制控件的高度。</p>
 <p>在用代码设置了控件的高度和 header 的高度后，发现效果并非如预期所想。在 storyboard 里面设置了90，在代码中设置了45，显示时还是90，代码更改高度没变化。</p>
 <p><font color="brown"><strong>原因：</strong></font>UIButton 的 buttonType<br>在 storyboard 里面设置了控件的高度，并且添加了约束，其中便有高度的约束，约束有了，代码更改控件的高度，并不会有效果。</p>

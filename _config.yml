@@ -4,7 +4,7 @@
 
 # Site
 title: 秋儿
-subtitle:
+subtitle: iOS 开发
 description:
 author: 秋儿
 language:
@@ -73,3 +73,17 @@ deploy:
   type: git
   repository: https://github.com/mohuifen/mohuifen.github.io.git
   branch: master
+
+# # Extensions
+# Plugins:
+# - hexo-generator-feed
+# - hexo-generator-sitemap
+
+# #Feed Atom
+# feed:
+#   type: atom
+#   path: atom.xml
+#   limit: 20
+
+
+# rss: /atom.xml

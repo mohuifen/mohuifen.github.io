@@ -8,34 +8,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="时间：2015年11月20日
 作者：秋儿（lvruifei@foxmail.com）
-最近在修复 APP 的 Bug，遇到了几个因对 SDK 不熟 造成的 Bug。如下：
-Bug1：点击获取验证码后，没有进行倒计时，且不能再次点击使用 GCD 写的倒计时，源代码：
-_isCountDown = YES;
-__block int timeout=kCountdownTime; //倒计时时间
-dis">
+最近在修复 APP 的 Bug，遇到了几个因对 SDK 不熟 造成的 Bug。如下：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Bug 小记（贵金属）">
 <meta property="og:url" content="http://yoursite.com/2015/11/20/Bug-小记（贵金属）/index.html">
 <meta property="og:site_name" content="秋儿">
 <meta property="og:description" content="时间：2015年11月20日
 作者：秋儿（lvruifei@foxmail.com）
-最近在修复 APP 的 Bug，遇到了几个因对 SDK 不熟 造成的 Bug。如下：
-Bug1：点击获取验证码后，没有进行倒计时，且不能再次点击使用 GCD 写的倒计时，源代码：
-_isCountDown = YES;
-__block int timeout=kCountdownTime; //倒计时时间
-dis">
-<meta property="og:updated_time" content="2015-12-24T03:57:40.000Z">
+最近在修复 APP 的 Bug，遇到了几个因对 SDK 不熟 造成的 Bug。如下：">
+<meta property="og:updated_time" content="2015-12-25T02:32:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Bug 小记（贵金属）">
 <meta name="twitter:description" content="时间：2015年11月20日
 作者：秋儿（lvruifei@foxmail.com）
-最近在修复 APP 的 Bug，遇到了几个因对 SDK 不熟 造成的 Bug。如下：
-Bug1：点击获取验证码后，没有进行倒计时，且不能再次点击使用 GCD 写的倒计时，源代码：
-_isCountDown = YES;
-__block int timeout=kCountdownTime; //倒计时时间
-dis">
-  
-    <link rel="alternative" href="/atom.xml" title="秋儿" type="application/atom+xml">
+最近在修复 APP 的 Bug，遇到了几个因对 SDK 不熟 造成的 Bug。如下：">
   
   
     <link rel="icon" href="/favicon.png">
@@ -59,6 +45,8 @@ dis">
 		  <h1 class="header-author"><a href="/">秋儿</a></h1>
 		</hgroup>
 
+		
+		<p class="header-subtitle">iOS 开发</p>
 		
 
 		
@@ -120,6 +108,8 @@ dis">
 							
 								<a class="github" target="_blank" href="https://github.com/mohuifen" title="github">github</a>
 					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
 						</div>
 					</nav>
 				</section>
@@ -172,6 +162,8 @@ dis">
 			  <h1 class="header-author">秋儿</h1>
 			</hgroup>
 			
+			<p class="header-subtitle">iOS 开发</p>
+			
 			<nav class="header-menu">
 				<ul>
 				
@@ -186,6 +178,8 @@ dis">
 				<div class="social">
 					
 						<a class="github" target="_blank" href="https://github.com/mohuifen" title="github">github</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
 			        
 				</div>
 			</nav>
@@ -237,6 +231,7 @@ dis">
         <p><br><br><strong>时间：2015年11月20日</strong></p>
 <p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
 <p><br><br>最近在修复 APP 的 Bug，遇到了几个因对 SDK 不熟 造成的 Bug。如下：<br><br></p>
+<a id="more"></a>
 <h4 id="Bug1_uFF1A_u70B9_u51FB_u83B7_u53D6_u9A8C_u8BC1_u7801_u540E_uFF0C_u6CA1_u6709_u8FDB_u884C_u5012_u8BA1_u65F6_uFF0C_u4E14_u4E0D_u80FD_u518D_u6B21_u70B9_u51FB"><a href="#Bug1_uFF1A_u70B9_u51FB_u83B7_u53D6_u9A8C_u8BC1_u7801_u540E_uFF0C_u6CA1_u6709_u8FDB_u884C_u5012_u8BA1_u65F6_uFF0C_u4E14_u4E0D_u80FD_u518D_u6B21_u70B9_u51FB" class="headerlink" title="Bug1：点击获取验证码后，没有进行倒计时，且不能再次点击"></a>Bug1：点击获取验证码后，没有进行倒计时，且不能再次点击</h4><p>使用 GCD 写的倒计时，源代码：</p>
 <pre><code>_isCountDown = YES;
 __block int timeout=kCountdownTime; //倒计时时间

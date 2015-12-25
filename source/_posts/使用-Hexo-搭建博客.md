@@ -24,6 +24,8 @@ tags: hexo
 
 	npm install hexo -g
 
+<!-- more -->
+
 执行init命令初始化hexo到你指定的目录
 
 	hexo init <folder>
