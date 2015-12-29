@@ -74,16 +74,18 @@ deploy:
   repository: https://github.com/mohuifen/mohuifen.github.io.git
   branch: master
 
+# 自动生成sitemap
+sitemap:
+path: sitemap.xml
+baidusitemap:
+path: baidusitemap.xml
+
+
 # # Extensions
 # Plugins:
 # - hexo-generator-feed
 # - hexo-generator-sitemap
 
-# #Feed Atom
-# feed:
-#   type: atom
-#   path: atom.xml
-#   limit: 20
 
 
 # rss: /atom.xml
