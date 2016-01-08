@@ -4,17 +4,27 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Tag: hexo | 秋儿</title>
+  <title>Storyboard复杂 UI 处理汇总 | 秋儿</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="秋儿">
-<meta property="og:url" content="http://yoursite.com/tags/hexo/index.html">
+  <meta name="description" content="时间：2015年XX月XX日
+作者：秋儿（lvruifei@foxmail.com）
+当我们在用 Storyboard 设计一些复杂的 UI 时，总觉得不是很好处理，约束不太容易正确添加。以下是我在这方面遇到的一些问题及找到的处理方法：
+在UIScrollView中嵌套多个TableView:http://www.jianshu.com/p/bad9bde9b81e文中 demo 是基于 Swif">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Storyboard复杂 UI 处理汇总">
+<meta property="og:url" content="http://yoursite.com/2016/01/08/Storyboard复杂-UI-处理汇总/index.html">
 <meta property="og:site_name" content="秋儿">
-<meta property="og:description">
+<meta property="og:description" content="时间：2015年XX月XX日
+作者：秋儿（lvruifei@foxmail.com）
+当我们在用 Storyboard 设计一些复杂的 UI 时，总觉得不是很好处理，约束不太容易正确添加。以下是我在这方面遇到的一些问题及找到的处理方法：
+在UIScrollView中嵌套多个TableView:http://www.jianshu.com/p/bad9bde9b81e文中 demo 是基于 Swif">
+<meta property="og:updated_time" content="2016-01-08T08:57:53.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="秋儿">
-<meta name="twitter:description">
+<meta name="twitter:title" content="Storyboard复杂 UI 处理汇总">
+<meta name="twitter:description" content="时间：2015年XX月XX日
+作者：秋儿（lvruifei@foxmail.com）
+当我们在用 Storyboard 设计一些复杂的 UI 时，总觉得不是很好处理，约束不太容易正确添加。以下是我在这方面遇到的一些问题及找到的处理方法：
+在UIScrollView中嵌套多个TableView:http://www.jianshu.com/p/bad9bde9b81e文中 demo 是基于 Swif">
   
   
     <link rel="icon" href="/favicon.png">
@@ -199,92 +209,124 @@ var _hmt = _hmt || [];
 	</div>
 </nav>
 
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-Storyboard复杂-UI-处理汇总" class="article article-type-post" itemscope itemprop="blogPost">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/12/23/使用-hexo-搭建博客/" class="archive-article-date">
-  	<time datetime="2015-12-23T03:39:45.000Z" itemprop="datePublished">Dec 23</time>
+    <div class="article-meta">
+      <a href="/2016/01/08/Storyboard复杂-UI-处理汇总/" class="article-date">
+  	<time datetime="2016-01-08T08:47:21.000Z" itemprop="datePublished">2016-01-08</time>
 </a>
-        </div>
-    	 
+    </div>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/12/23/使用-hexo-搭建博客/">使用 hexo 搭建博客</a>
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Storyboard复杂 UI 处理汇总
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+      </header>
+      
+      <div class="article-info article-info-post">
+        
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Storyboard/">Storyboard</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UIScrollView/">UIScrollView</a></li></ul>
 	</div>
 
-          
+        
 	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/教程/">教程</a>
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
 	</div>
 
 
-        </div>
         <div class="clearfix"></div>
-    </header>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>时间：2015年XX月XX日</strong></p>
+<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
+<p><br><br>当我们在用 Storyboard 设计一些复杂的 UI 时，总觉得不是很好处理，约束不太容易正确添加。以下是我在这方面遇到的一些问题及找到的处理方法：</p>
+<h3 id="u5728UIScrollView_u4E2D_u5D4C_u5957_u591A_u4E2ATableView_3A"><a href="#u5728UIScrollView_u4E2D_u5D4C_u5957_u591A_u4E2ATableView_3A" class="headerlink" title="在UIScrollView中嵌套多个TableView:"></a>在UIScrollView中嵌套多个TableView:</h3><p><a href="http://www.jianshu.com/p/bad9bde9b81e" target="_blank" rel="external">http://www.jianshu.com/p/bad9bde9b81e</a><br>文中 demo 是基于 Swift 语言做的（还好我刚把 Swift 语法看完，能看懂 demo.😉）</p>
+<a id="more"></a>
+<p><br></p>
+<font color="brown"><strong>对其补充：</strong></font>
+
+<p>若是页面需要导航栏，第一次进入页面时，第一个 table 会下陷64个像素，上下滑动列表后，回到导航条下面的位置。而第二个table 从最上面向下拉时，scorllview 显示偏移 x = 0 的的位置。<br>在代码中添加以下代码，可解决这些问题<br><br></p>
+<font color="green"><strong>解决方案：</strong></font>
+
+<pre><code>self.edgesForExtendedLayout = UIRectEdgeNone
+</code></pre>
+      
+    </div>
+    
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/12/23/2016年计划/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">2016年计划</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/12/23/hello-world/" class="archive-article-date">
-  	<time datetime="2015-12-23T03:13:33.000Z" itemprop="datePublished">Dec 23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/12/23/hello-world/">Hello World</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
 	</div>
-
-          
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/教程/">教程</a>
-	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Storyboard复杂-UI-处理汇总" data-title="Storyboard复杂 UI 处理汇总" data-url="http://yoursite.com/2016/01/08/Storyboard复杂-UI-处理汇总/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
 
 </div>
       <footer id="footer">
@@ -310,9 +352,9 @@ var _hmt = _hmt || [];
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false
 	}
