@@ -5,7 +5,7 @@
   <subtitle><![CDATA[iOS 开发]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com//"/>
-  <updated>2016-01-08T08:57:53.000Z</updated>
+  <updated>2016-01-08T09:36:36.000Z</updated>
   <id>http://yoursite.com//</id>
   
   <author>
@@ -20,9 +20,8 @@
     <link href="http://yoursite.com/2016/01/08/Storyboard%E5%A4%8D%E6%9D%82-UI-%E5%A4%84%E7%90%86%E6%B1%87%E6%80%BB/"/>
     <id>http://yoursite.com/2016/01/08/Storyboard复杂-UI-处理汇总/</id>
     <published>2016-01-08T08:47:21.000Z</published>
-    <updated>2016-01-08T08:57:53.000Z</updated>
-    <content type="html"><![CDATA[<p><strong>时间：2015年XX月XX日</strong></p>
-<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
+    <updated>2016-01-08T09:36:36.000Z</updated>
+    <content type="html"><![CDATA[<p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
 <p><br><br>当我们在用 Storyboard 设计一些复杂的 UI 时，总觉得不是很好处理，约束不太容易正确添加。以下是我在这方面遇到的一些问题及找到的处理方法：</p>
 <h3 id="u5728UIScrollView_u4E2D_u5D4C_u5957_u591A_u4E2ATableView_3A"><a href="#u5728UIScrollView_u4E2D_u5D4C_u5957_u591A_u4E2ATableView_3A" class="headerlink" title="在UIScrollView中嵌套多个TableView:"></a>在UIScrollView中嵌套多个TableView:</h3><p><a href="http://www.jianshu.com/p/bad9bde9b81e" target="_blank" rel="external">http://www.jianshu.com/p/bad9bde9b81e</a><br>文中 demo 是基于 Swift 语言做的（还好我刚把 Swift 语法看完，能看懂 demo.😉）</p>
 <a id="more"></a>
@@ -35,8 +34,7 @@
 <pre><code>self.edgesForExtendedLayout = UIRectEdgeNone
 </code></pre>]]></content>
     <summary type="html">
-    <![CDATA[<p><strong>时间：2015年XX月XX日</strong></p>
-<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
+    <![CDATA[<p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
 <p><br><br>当我们在用 Storyboard 设计一些复杂的 UI 时，总觉得不是很好处理，约束不太容易正确添加。以下是我在这方面遇到的一些问题及找到的处理方法：</p>
 <h3 id="u5728UIScrollView_u4E2D_u5D4C_u5957_u591A_u4E2ATableView_3A"><a href="#u5728UIScrollView_u4E2D_u5D4C_u5957_u591A_u4E2ATableView_3A" class="headerlink" title="在UIScrollView中嵌套多个TableView:"></a>在UIScrollView中嵌套多个TableView:</h3><p><a href="http://www.jianshu.com/p/bad9bde9b81e">http://www.jianshu.com/p/bad9bde9b81e</a><br>文中 demo 是基于 Swift 语言做的（还好我刚把 Swift 语法看完，能看懂 demo.😉）</p>]]>
     
@@ -55,9 +53,8 @@
     <link href="http://yoursite.com/2015/12/23/2016%E5%B9%B4%E8%AE%A1%E5%88%92/"/>
     <id>http://yoursite.com/2015/12/23/2016年计划/</id>
     <published>2015-12-23T04:13:56.000Z</published>
-    <updated>2015-12-25T02:31:19.000Z</updated>
-    <content type="html"><![CDATA[<p><br><br><strong>时间：2015年12月23日</strong></p>
-<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
+    <updated>2016-01-08T09:36:11.000Z</updated>
+    <content type="html"><![CDATA[<p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
 <p><br></p>
 <h3 id="u77E5_u8BC6_uFF1A"><a href="#u77E5_u8BC6_uFF1A" class="headerlink" title="知识："></a>知识：</h3><ul>
 <li>金融 </li>
@@ -79,8 +76,7 @@
 <h3 id="u4EA4_u53CB"><a href="#u4EA4_u53CB" class="headerlink" title="交友"></a>交友</h3><p>至少一位知心朋友</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p><br><br><strong>时间：2015年12月23日</strong></p>
-<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
+    <![CDATA[<p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
 <p><br></p>
 <h3 id="u77E5_u8BC6_uFF1A"><a href="#u77E5_u8BC6_uFF1A" class="headerlink" title="知识："></a>知识：</h3><ul>
 <li>金融 </li>
@@ -107,8 +103,9 @@
     <link href="http://yoursite.com/2015/12/23/2015%E5%B9%B4%E6%80%BB%E7%BB%93/"/>
     <id>http://yoursite.com/2015/12/23/2015年总结/</id>
     <published>2015-12-23T04:09:53.000Z</published>
-    <updated>2015-12-28T04:37:14.000Z</updated>
-    <content type="html"><![CDATA[<p><code>人生天地之间,若白驹之过郤(隙),忽然而已.————《庄子·知北游》</code></p>
+    <updated>2016-01-08T09:36:07.000Z</updated>
+    <content type="html"><![CDATA[<p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
+<p><br><br><code>人生天地之间,若白驹之过郤(隙),忽然而已.————《庄子·知北游》</code></p>
 <p><br><br>光阴似箭，日月如梭，转眼间2015年仅剩几个日夜。</p>
 <p>从12年11月29号开始接触 iOS 开发，到现在也3年时间了。一直浑浑噩噩的过着上班工作，下班休息，既无总结也无规划的日子。最近突然间想写写自己在15年做了些什么，学到了些什么，并计划下下一年度的任务和目标。</p>
 <a id="more"></a>
@@ -130,7 +127,8 @@
 <h3 id="u56DE_u987E_u603B_u7ED3"><a href="#u56DE_u987E_u603B_u7ED3" class="headerlink" title="回顾总结"></a>回顾总结</h3><p>工作这些年，也没怎么好好的总结过，现在回顾下，感觉自己只是白白添了岁数，浪费了一年又的光阴。所以，计划16年多读点书，多学点技术，顺便要改变下自己的性格，至少交一位知心的朋友。</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p><code>人生天地之间,若白驹之过郤(隙),忽然而已.————《庄子·知北游》</code></p>
+    <![CDATA[<p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
+<p><br><br><code>人生天地之间,若白驹之过郤(隙),忽然而已.————《庄子·知北游》</code></p>
 <p><br><br>光阴似箭，日月如梭，转眼间2015年仅剩几个日夜。</p>
 <p>从12年11月29号开始接触 iOS 开发，到现在也3年时间了。一直浑浑噩噩的过着上班工作，下班休息，既无总结也无规划的日子。最近突然间想写写自己在15年做了些什么，学到了些什么，并计划下下一年度的任务和目标。</p>]]>
     
@@ -147,9 +145,8 @@
     <link href="http://yoursite.com/2015/12/23/%E4%BD%BF%E7%94%A8-hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/"/>
     <id>http://yoursite.com/2015/12/23/使用-hexo-搭建博客/</id>
     <published>2015-12-23T03:39:45.000Z</published>
-    <updated>2015-12-25T02:31:37.000Z</updated>
-    <content type="html"><![CDATA[<p><br><br><strong>时间：2015年12月23日</strong></p>
-<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
+    <updated>2016-01-08T09:36:17.000Z</updated>
+    <content type="html"><![CDATA[<p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
 <p><br></p>
 <h4 id="u914D_u7F6E_u73AF_u5883"><a href="#u914D_u7F6E_u73AF_u5883" class="headerlink" title="配置环境"></a>配置环境</h4><p> 安装 homebrew：</p>
 <pre><code>ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
@@ -189,8 +186,7 @@
 <pre><code>hexo deploy
 </code></pre>]]></content>
     <summary type="html">
-    <![CDATA[<p><br><br><strong>时间：2015年12月23日</strong></p>
-<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
+    <![CDATA[<p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
 <p><br></p>
 <h4 id="u914D_u7F6E_u73AF_u5883"><a href="#u914D_u7F6E_u73AF_u5883" class="headerlink" title="配置环境"></a>配置环境</h4><p> 安装 homebrew：</p>
 <pre><code>ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
@@ -241,10 +237,10 @@
     <link href="http://yoursite.com/2015/12/22/NSLayoutConstraint-%E7%9A%84%E5%A6%99%E7%94%A8-%E8%B4%B5%E9%87%91%E5%B1%9E%EF%BC%89/"/>
     <id>http://yoursite.com/2015/12/22/NSLayoutConstraint-的妙用-贵金属）/</id>
     <published>2015-12-22T04:01:35.000Z</published>
-    <updated>2015-12-25T02:32:19.000Z</updated>
-    <content type="html"><![CDATA[<p><br><br><strong>时间：2015年12月22日</strong></p>
-<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p><br><br>贵金属项目，是第一次使用 storyboard 开发，以下是初次接触 NSLayoutConstraint，遇到的问题：</p>
+    <updated>2016-01-08T09:36:32.000Z</updated>
+    <content type="html"><![CDATA[<p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
+<p><br></p>
+<p>贵金属项目，是第一次使用 storyboard 开发，以下是初次接触 NSLayoutConstraint，遇到的问题：</p>
 <a id="more"></a>
 <h4 id="u95EE_u98981_uFF1A"><a href="#u95EE_u98981_uFF1A" class="headerlink" title="问题1："></a>问题1：</h4><p>用 storyboard 搭建的 UI，在 tableView 的 header 中的控件的高度是不固定的，条件1下控件高90，条件2下控件高45,所以就考虑用代码控制控件的高度。</p>
 <p>在用代码设置了控件的高度和 header 的高度后，发现效果并非如预期所想。在 storyboard 里面设置了90，在代码中设置了45，显示时还是90，代码更改高度没变化。</p>
@@ -265,9 +261,9 @@ self.surplusHeightLayout.constant = 45;
 </code></pre><p>在 storyboard 中设置分割线的高为任意值，选中分割线的高的约束，修改其类型NSLayoutConstraint为创建的NSLayoutConstraintHairline即可达到目的。</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p><br><br><strong>时间：2015年12月22日</strong></p>
-<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p><br><br>贵金属项目，是第一次使用 storyboard 开发，以下是初次接触 NSLayoutConstraint，遇到的问题：</p>]]>
+    <![CDATA[<p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
+<p><br></p>
+<p>贵金属项目，是第一次使用 storyboard 开发，以下是初次接触 NSLayoutConstraint，遇到的问题：</p>]]>
     
     </summary>
     
@@ -282,10 +278,10 @@ self.surplusHeightLayout.constant = 45;
     <link href="http://yoursite.com/2015/11/20/Bug-%E5%B0%8F%E8%AE%B0%EF%BC%88%E8%B4%B5%E9%87%91%E5%B1%9E%EF%BC%89/"/>
     <id>http://yoursite.com/2015/11/20/Bug-小记（贵金属）/</id>
     <published>2015-11-20T03:13:33.000Z</published>
-    <updated>2015-12-25T02:32:03.000Z</updated>
-    <content type="html"><![CDATA[<p><br><br><strong>时间：2015年11月20日</strong></p>
-<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p><br><br>最近在修复 APP 的 Bug，遇到了几个因对 SDK 不熟 造成的 Bug。如下：<br><br></p>
+    <updated>2016-01-08T09:36:26.000Z</updated>
+    <content type="html"><![CDATA[<p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
+<p><br></p>
+<p>最近在修复 APP 的 Bug，遇到了几个因对 SDK 不熟 造成的 Bug。如下：<br><br></p>
 <a id="more"></a>
 <h4 id="Bug1_uFF1A_u70B9_u51FB_u83B7_u53D6_u9A8C_u8BC1_u7801_u540E_uFF0C_u6CA1_u6709_u8FDB_u884C_u5012_u8BA1_u65F6_uFF0C_u4E14_u4E0D_u80FD_u518D_u6B21_u70B9_u51FB"><a href="#Bug1_uFF1A_u70B9_u51FB_u83B7_u53D6_u9A8C_u8BC1_u7801_u540E_uFF0C_u6CA1_u6709_u8FDB_u884C_u5012_u8BA1_u65F6_uFF0C_u4E14_u4E0D_u80FD_u518D_u6B21_u70B9_u51FB" class="headerlink" title="Bug1：点击获取验证码后，没有进行倒计时，且不能再次点击"></a>Bug1：点击获取验证码后，没有进行倒计时，且不能再次点击</h4><p>使用 GCD 写的倒计时，源代码：</p>
 <pre><code>_isCountDown = YES;
@@ -331,9 +327,9 @@ dispatch_resume(_timer);
 <p><font color="green"><strong>解决方案：</strong></font>在 app 启动的时候判断是否在 Document 文件夹下存在相同的 plsit 文件。 不存在，获取沙盒下 plist 文件中的内容，并写入Document 文件夹下的 plsit 文件。存在则不做任何处理。（之所以选择这种方式而不选择直接将内容用代码写入 Document 文件夹下来解决这个问题，是因为个人认为在开发时方便对工程中plsit 文件内容的更改）</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p><br><br><strong>时间：2015年11月20日</strong></p>
-<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p><br><br>最近在修复 APP 的 Bug，遇到了几个因对 SDK 不熟 造成的 Bug。如下：<br></br></p>]]>
+    <![CDATA[<p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
+<p><br></p>
+<p>最近在修复 APP 的 Bug，遇到了几个因对 SDK 不熟 造成的 Bug。如下：<br></br></p>]]>
     
     </summary>
     
@@ -350,10 +346,10 @@ dispatch_resume(_timer);
     <link href="http://yoursite.com/2015/09/16/%E6%8C%87%E7%BA%B9%E8%A7%A3%E9%94%81/"/>
     <id>http://yoursite.com/2015/09/16/指纹解锁/</id>
     <published>2015-09-16T03:39:45.000Z</published>
-    <updated>2015-12-25T02:31:54.000Z</updated>
-    <content type="html"><![CDATA[<p><br><br><strong>时间：2015年9月16日</strong></p>
-<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p><br><br>iOS8 指纹解锁的API，<a href="http://www.bubuko.com/infodetail-726115.html" target="_blank" rel="external">这篇文章</a>解释的非常清楚。  </p>
+    <updated>2016-01-08T09:36:21.000Z</updated>
+    <content type="html"><![CDATA[<p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
+<p><br></p>
+<p>iOS8 指纹解锁的API，<a href="http://www.bubuko.com/infodetail-726115.html" target="_blank" rel="external">这篇文章</a>解释的非常清楚。  </p>
 <p>本文主要针对在实际使用中遇到的问题及解决方法，假定已经了解指纹解锁API，如不了解API,请先移步<a href="http://www.bubuko.com/infodetail-726115.html" target="_blank" rel="external">指纹解锁的API说明</a></p>
 <p>项目之前一直使用的是手势密码，近来要增加 iOS8 新出的指纹解锁功能。需求是在设置中添加指纹解锁开关 </p>
 <a id="more"></a>
@@ -445,9 +441,9 @@ return isDeviceSupportTouchId;
 <p>待用9.2系统的真机运行时，半信半疑的把其改用了dispatch_async，并没有崩溃。但使用dispatch_sync确实崩溃了。</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p><br><br><strong>时间：2015年9月16日</strong></p>
-<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p><br><br>iOS8 指纹解锁的API，<a href="http://www.bubuko.com/infodetail-726115.html">这篇文章</a>解释的非常清楚。  </p>
+    <![CDATA[<p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
+<p><br></p>
+<p>iOS8 指纹解锁的API，<a href="http://www.bubuko.com/infodetail-726115.html">这篇文章</a>解释的非常清楚。  </p>
 <p>本文主要针对在实际使用中遇到的问题及解决方法，假定已经了解指纹解锁API，如不了解API,请先移步<a href="http://www.bubuko.com/infodetail-726115.html">指纹解锁的API说明</a></p>
 <p>项目之前一直使用的是手势密码，近来要增加 iOS8 新出的指纹解锁功能。需求是在设置中添加指纹解锁开关 </p>]]>
     
