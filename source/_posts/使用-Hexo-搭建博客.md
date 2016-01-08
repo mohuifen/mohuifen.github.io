@@ -4,8 +4,6 @@ categories: 教程
 tags: hexo
 ---
 <br>
-**时间：2015年12月23日**
-
 **作者：秋儿（lvruifei@foxmail.com）**
 
 <br>

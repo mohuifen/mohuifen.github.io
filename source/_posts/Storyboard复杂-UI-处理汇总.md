@@ -3,8 +3,7 @@ date: 2016-01-08 16:47:21
 categories: iOS
 tags: [Storyboard,UIScrollView]
 ---
-**时间：2015年XX月XX日**
-
+<br>
 **作者：秋儿（lvruifei@foxmail.com）**
 
 <br>

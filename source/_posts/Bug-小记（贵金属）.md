@@ -9,11 +9,10 @@ tags: [Bug,贵金属]
 
 
 <br>
-**时间：2015年11月20日**
-
 **作者：秋儿（lvruifei@foxmail.com）**
 
 <br>
+
 最近在修复 APP 的 Bug，遇到了几个因对 SDK 不熟 造成的 Bug。如下：
 </br>
 
