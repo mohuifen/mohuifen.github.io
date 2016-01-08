@@ -227,18 +227,10 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><br><br><strong>时间：2015年XX月XX日</strong></p>
+        <p><strong>时间：2015年XX月XX日</strong></p>
 <p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p><br></p>
-<p>当我们在用 Storyboard 设计一些复杂的 UI 时，总觉得不是很好处理，约束不太容易正确添加。以下是我在这方面遇到的一些问题及找到的处理方法：</p>
-<p>#####在UIScrollView中嵌套多个TableView:<br><a href="http://www.jianshu.com/p/bad9bde9b81e" target="_blank" rel="external">http://www.jianshu.com/p/bad9bde9b81e</a><br>文中 demo 是基于 Swift 语言做的（还好我刚把 Swift 语法看完，能看懂 demo.😉）</p>
-<font color="brown"><strong>对其补充：</strong></font>
-
-<p>若是页面需要导航栏，第一次进入页面时，第一个 table 会下陷64个像素，上下滑动列表后，回到导航条下面的位置。而第二个table 从最上面向下拉时，scorllview 显示偏移 x = 0 的的位置。<br>在代码中添加以下代码，可解决这些问题</p>
-<font color="green"><strong>解决方案：</strong></font>
-
-<pre><code>self.edgesForExtendedLayout = UIRectEdgeNone
-</code></pre>
+<p><br><br>当我们在用 Storyboard 设计一些复杂的 UI 时，总觉得不是很好处理，约束不太容易正确添加。以下是我在这方面遇到的一些问题及找到的处理方法：</p>
+<h3 id="u5728UIScrollView_u4E2D_u5D4C_u5957_u591A_u4E2ATableView_3A"><a href="#u5728UIScrollView_u4E2D_u5D4C_u5957_u591A_u4E2ATableView_3A" class="headerlink" title="在UIScrollView中嵌套多个TableView:"></a>在UIScrollView中嵌套多个TableView:</h3><p><a href="http://www.jianshu.com/p/bad9bde9b81e">http://www.jianshu.com/p/bad9bde9b81e</a><br>文中 demo 是基于 Swift 语言做的（还好我刚把 Swift 语法看完，能看懂 demo.😉）</p>
       
     </div>
     
@@ -255,6 +247,10 @@ var _hmt = _hmt || [];
 	</div>
 
 
+      
+        <p class="article-more-link">
+          <a  href="/2016/01/08/Storyboard复杂-UI-处理汇总/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
