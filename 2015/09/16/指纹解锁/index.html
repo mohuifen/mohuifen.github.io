@@ -20,7 +20,7 @@ iOS8 指纹解锁的API，这篇文章解释的非常清楚。
 iOS8 指纹解锁的API，这篇文章解释的非常清楚。  
 本文主要针对在实际使用中遇到的问题及解决方法，假定已经了解指纹解锁API，如不了解API,请先移步指纹解锁的API说明
 项目之前一直使用的是手势密码，近来要增加 iOS8 新出的指纹解锁功能。需求是在设置中添加指纹解锁开关">
-<meta property="og:updated_time" content="2016-01-08T09:36:21.000Z">
+<meta property="og:updated_time" content="2016-01-22T02:43:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="指纹解锁">
 <meta name="twitter:description" content="作者：秋儿（lvruifei@foxmail.com）
@@ -338,7 +338,6 @@ return isDeviceSupportTouchId;
 <hr>
 <hr>
 <p><br><br><strong>时间：2015年12月23日</strong></p>
-<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
 <p><br><br>最近 iOS9.2 系统正式发布，有反应说App中使用指纹解锁在 iOS9.2 上会导致App崩溃。故，开始了查找 bug 之旅。</p>
 <h4 id="u95EE_u98984_uFF1A"><a href="#u95EE_u98984_uFF1A" class="headerlink" title="问题4："></a>问题4：</h4><p>升级手机9.2 版本后，使用指纹解锁，果然是崩溃了。手指放到 home 键上后，App 卡死，无法点击页面上的控件，大概3，4秒后闪退至桌面。</p>
 <p>由于测试机都没有升级，故先看了相关的代码，注意到在验证指纹成功后，                使用dispatch_sync(dispatch_get_main_queue(), ^{ }）来调用主线程处理一些工作。遂，猜想应该是这里出了问题，一般应使用dispatch_async,而非dispatch_sync。但不敢肯定，因为无法解释这样写就会崩溃，而且之前一直都是可以正常使用的。</p>

@@ -16,7 +16,7 @@
 <meta property="og:description" content="作者：秋儿（lvruifei@foxmail.com）
 
 最近在修复 APP 的 Bug，遇到了几个因对 SDK 不熟 造成的 Bug。如下：">
-<meta property="og:updated_time" content="2016-01-08T09:36:26.000Z">
+<meta property="og:updated_time" content="2016-01-22T02:51:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Bug 小记（贵金属）">
 <meta name="twitter:description" content="作者：秋儿（lvruifei@foxmail.com）
@@ -287,13 +287,15 @@ dispatch_resume(_timer);
 </code></pre><p>关键在于这行代码。设置了禁用状态下的文字。顺利解决了 这个 Bug。</p>
 <p><br></p>
 <h4 id="Bug2_uFF1A_u5012_u8BA1_u65F6_UIButton__u4E0A_u7684_u6587_u5B57_u53D8_u66F4_u4F1A_u6709_u95EA_u70C1_u6548_u679C"><a href="#Bug2_uFF1A_u5012_u8BA1_u65F6_UIButton__u4E0A_u7684_u6587_u5B57_u53D8_u66F4_u4F1A_u6709_u95EA_u70C1_u6548_u679C" class="headerlink" title="Bug2：倒计时 UIButton 上的文字变更会有闪烁效果"></a>Bug2：倒计时 UIButton 上的文字变更会有闪烁效果</h4><p><br><br>UIButton 设置 title时会闪烁。</p>
-<p><font color="brown"><strong>原因：</strong></font>UIButton 的 buttonType 是 System 类型时会出现该种问题</p>
-<p><font color="green"><strong>解决方案：</strong></font>UIButton 的 buttonType 设置为 Custom 类型时不会出现闪烁。</p>
-<p><br></p>
-<h4 id="Bug3_uFF1A_u5728_u5DE5_u7A0B_u4E2D_u6DFB_u52A0plist__u6587_u4EF6_uFF0C_u7528_u4EE3_u7801_u5BF9_u5176_u8FDB_u884C_u5199_u5165_u64CD_u4F5C_uFF0C_u5728_u6A21_u62DF_u5668_u4E2D_u6309_u4EE3_u7801_u6267_u884C_uFF0C_u4F46_u5728_u771F_u673A_u4E0Aplist_u4E2D_u5185_u5BB9_u672A_u6539_u53D8"><a href="#Bug3_uFF1A_u5728_u5DE5_u7A0B_u4E2D_u6DFB_u52A0plist__u6587_u4EF6_uFF0C_u7528_u4EE3_u7801_u5BF9_u5176_u8FDB_u884C_u5199_u5165_u64CD_u4F5C_uFF0C_u5728_u6A21_u62DF_u5668_u4E2D_u6309_u4EE3_u7801_u6267_u884C_uFF0C_u4F46_u5728_u771F_u673A_u4E0Aplist_u4E2D_u5185_u5BB9_u672A_u6539_u53D8" class="headerlink" title="Bug3：在工程中添加plist 文件，用代码对其进行写入操作，在模拟器中按代码执行，但在真机上plist中内容未改变"></a>Bug3：在工程中添加plist 文件，用代码对其进行写入操作，在模拟器中按代码执行，但在真机上plist中内容未改变</h4><p><br><br>plist 文件中是一个数组，元素是多个字典，在模拟器上运行一切正常，但测试人员用真机测试时发现问题，无法写入到 plist 文件中。</p>
-<p><font color="brown"><strong>原因：</strong></font> 打包在 ipa 的文件是无法更改的。一句话：无权限修改（知道真相的我眼泪掉下来~)，只可进行读取操作。</p>
-<p><font color="green"><strong>解决方案：</strong></font>在 app 启动的时候判断是否在 Document 文件夹下存在相同的 plsit 文件。 不存在，获取沙盒下 plist 文件中的内容，并写入Document 文件夹下的 plsit 文件。存在则不做任何处理。（之所以选择这种方式而不选择直接将内容用代码写入 Document 文件夹下来解决这个问题，是因为个人认为在开发时方便对工程中plsit 文件内容的更改）</p>
+<font color="brown"><strong>原因：</strong></font>UIButton 的 buttonType 是 System 类型时会出现该种问题<br><br><font color="green"><strong>解决方案：</strong></font>UIButton 的 buttonType 设置为 Custom 类型时不会出现闪烁。<br><br><br><br>####    Bug3：在工程中添加plist 文件，用代码对其进行写入操作，在模拟器中按代码执行，但在真机上plist中内容未改变<br><br><br>plist 文件中是一个数组，元素是多个字典，在模拟器上运行一切正常，但测试人员用真机测试时发现问题，无法写入到 plist 文件中。<br><br><font color="brown"><strong>原因：</strong></font> 打包在 ipa 的文件是无法更改的。一句话：无权限修改（知道真相的我眼泪掉下来~)，只可进行读取操作。<br><br><font color="green"><strong>解决方案：</strong></font>在 app 启动的时候判断是否在 Document 文件夹下存在相同的 plsit 文件。 不存在，获取沙盒下 plist 文件中的内容，并写入Document 文件夹下的 plsit 文件。存在则不做任何处理。（之所以选择这种方式而不选择直接将内容用代码写入 Document 文件夹下来解决这个问题，是因为个人认为在开发时方便对工程中plsit 文件内容的更改）<br><br><br><br><br><strong>*<br><br><br><br>
 
+</strong>时间：2016年1月20日<strong><br><br><br><br><br>####    Bug1：进入某个页面，App崩溃，崩溃原因是：[NSCFType set]: unrecognized selector sent to instance 0x4d80b00’<br><br><br><br><br><font color="brown"></font></strong>原因：<strong> 在新页面使用了NSMutableAttributedString，使用方式导致了崩溃，目前无法解释，使用方法如下：<br><br><br>     NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:prodNameStr];<br>    [attriString addAttribute:NSFontAttributeName<br>                         value:[UIFont systemFontOfSize:16.0]<br>                         range:NSMakeRange(2, 2)];<br><br>    [attriString addAttribute:NSForegroundColorAttributeName<br>                         value:[UIColor redColor]<br>                         range:NSMakeRange(2, 2)];<br><br><br><font color="green"></font></strong>解决方案：**
+
+
+<pre><code> NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:prodNameStr];
+
+[attriString setAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12.0], NSForegroundColorAttributeName:ColorWithHexString(GJS_COLOR_TEXT_GRAY)} range:NSMakeRange(prodNameStr.length - time.length, time.length)];
+</code></pre>
       
     </div>
     
