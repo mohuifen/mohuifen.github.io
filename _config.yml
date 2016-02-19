@@ -73,6 +73,9 @@ deploy:
   type: git
   repository: https://github.com/mohuifen/mohuifen.github.io.git
   branch: master
+  type: git
+  repository: git@gitcafe.com:mohuifen/mohuifen.git
+  branch: gitcafe-pages
 
 # 自动生成sitemap
 sitemap:
