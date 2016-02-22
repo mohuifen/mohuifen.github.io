@@ -5,7 +5,7 @@
   <subtitle><![CDATA[iOS 开发]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com//"/>
-  <updated>2016-01-08T09:36:36.000Z</updated>
+  <updated>2016-02-22T10:46:30.000Z</updated>
   <id>http://yoursite.com//</id>
   
   <author>
@@ -14,6 +14,70 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[提交开发效率的工具和插件]]></title>
+    <link href="http://yoursite.com/2016/02/22/%E6%8F%90%E4%BA%A4%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87%E7%9A%84%E5%B7%A5%E5%85%B7%E5%92%8C%E6%8F%92%E4%BB%B6/"/>
+    <id>http://yoursite.com/2016/02/22/提交开发效率的工具和插件/</id>
+    <published>2016-02-22T10:42:25.000Z</published>
+    <updated>2016-02-22T10:46:30.000Z</updated>
+    <content type="html"><![CDATA[<p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
+<p><br></p>
+<h4 id="Xcode_u63D2_u4EF6"><a href="#Xcode_u63D2_u4EF6" class="headerlink" title="Xcode插件"></a>Xcode插件</h4><ul>
+<li><p>1.Alcatraz,管理Xcode插件<br><a href="https://github.com/alcatraz/Alcatraz" target="_blank" rel="external">https://github.com/alcatraz/Alcatraz</a></p>
+</li>
+<li><p>2.Auto-Importer,快速导入头文件<br><a href="https://github.com/citrusbyte/Auto-Importer-for-Xcode" target="_blank" rel="external">https://github.com/citrusbyte/Auto-Importer-for-Xcode</a></p>
+</li>
+<li><p>3.Backlight,高亮显示正在编辑的行<br><a href="https://github.com/limejelly/Backlight-for-XCode" target="_blank" rel="external">https://github.com/limejelly/Backlight-for-XCode</a></p>
+</li>
+</ul>
+<a id="more"></a>
+<ul>
+<li><p>4.DerivedData Exterminator,一键删除Derived Data<br><a href="https://github.com/kattrali/deriveddata-exterminator" target="_blank" rel="external">https://github.com/kattrali/deriveddata-exterminator</a></p>
+</li>
+<li><p>5.DXXcodeConsoleUnicodePlugin,转换 Xcode 控制台中一些不可阅读的字符。<br><a href="https://github.com/dhcdht/DXXcodeConsoleUnicodePlugin" target="_blank" rel="external">https://github.com/dhcdht/DXXcodeConsoleUnicodePlugin</a></p>
+</li>
+<li><p>6.FuzzyAutocompletePlugin,代码补全支持模糊查询<br><a href="https://github.com/FuzzyAutocomplete/FuzzyAutocompletePlugin" target="_blank" rel="external">https://github.com/FuzzyAutocomplete/FuzzyAutocompletePlugin</a></p>
+</li>
+<li><p>7.GitDiff,简单直观的标记本次commit修改的部位<br><a href="https://github.com/johnno1962/GitDiff" target="_blank" rel="external">https://github.com/johnno1962/GitDiff</a></p>
+</li>
+<li><p>8.VVDocumenter,三道杠添加文档注释<br><a href="https://github.com/onevcat/VVDocumenter-Xcode" target="_blank" rel="external">https://github.com/onevcat/VVDocumenter-Xcode</a></p>
+</li>
+<li><p>9.SCXcodeMiniMap,右边显示小地图<br><a href="https://github.com/stefanceriu/SCXcodeMiniMap" target="_blank" rel="external">https://github.com/stefanceriu/SCXcodeMiniMap</a></p>
+</li>
+<li><p>10.KSImageNamed,用图片时自动显示图片缩略图<br><a href="https://github.com/ksuther/KSImageNamed-Xcode" target="_blank" rel="external">https://github.com/ksuther/KSImageNamed-Xcode</a></p>
+</li>
+<li><p>11.SCXcodeSwitchExpander,switch枚举的时候会自动生成代码<br><a href="https://github.com/stefanceriu/SCXcodeSwitchExpander" target="_blank" rel="external">https://github.com/stefanceriu/SCXcodeSwitchExpander</a></p>
+</li>
+</ul>
+<h4 id="Mac_u5DE5_u5177"><a href="#Mac_u5DE5_u5177" class="headerlink" title="Mac工具"></a>Mac工具</h4><ul>
+<li><p>1.Network Link Conditioner,模拟不同网环境<br><a href="http://blog.csdn.net/chun799/article/details/7887377" target="_blank" rel="external">http://blog.csdn.net/chun799/article/details/7887377</a></p>
+</li>
+<li><p>2.Charles,Mac上的抓包工具Charles<br><a href="http://blog.csdn.net/jiangwei0910410003/article/details/41620363" target="_blank" rel="external">http://blog.csdn.net/jiangwei0910410003/article/details/41620363</a></p>
+</li>
+<li><p>3.iSwift for Mac,Objective-C转换Swift代码工具<br><a href="http://www.waitsun.com/iswift-2-0.html" target="_blank" rel="external">http://www.waitsun.com/iswift-2-0.html</a></p>
+</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
+<p><br></p>
+<h4 id="Xcode_u63D2_u4EF6"><a href="#Xcode_u63D2_u4EF6" class="headerlink" title="Xcode插件"></a>Xcode插件</h4><ul>
+<li><p>1.Alcatraz,管理Xcode插件<br><a href="https://github.com/alcatraz/Alcatraz">https://github.com/alcatraz/Alcatraz</a></p>
+</li>
+<li><p>2.Auto-Importer,快速导入头文件<br><a href="https://github.com/citrusbyte/Auto-Importer-for-Xcode">https://github.com/citrusbyte/Auto-Importer-for-Xcode</a></p>
+</li>
+<li><p>3.Backlight,高亮显示正在编辑的行<br><a href="https://github.com/limejelly/Backlight-for-XCode">https://github.com/limejelly/Backlight-for-XCode</a></p>
+</li>
+</ul>]]>
+    
+    </summary>
+    
+      <category term="开发" scheme="http://yoursite.com/tags/%E5%BC%80%E5%8F%91/"/>
+    
+      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Storyboard复杂 UI 处理汇总]]></title>
