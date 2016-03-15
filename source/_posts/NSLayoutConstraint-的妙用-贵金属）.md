@@ -3,12 +3,7 @@ date: 2015-12-22 12:01:35
 categories: iOS
 tags: [贵金属]
 ---
-
-
-<br>
 **作者：秋儿（lvruifei@foxmail.com）**
-
-<br>
 
 贵金属项目，是第一次使用 storyboard 开发，以下是初次接触 NSLayoutConstraint，遇到的问题：
 

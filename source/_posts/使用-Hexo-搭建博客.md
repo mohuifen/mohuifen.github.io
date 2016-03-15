@@ -3,10 +3,7 @@ date: 2015-12-23 11:39:45
 categories: 教程
 tags: hexo
 ---
-<br>
 **作者：秋儿（lvruifei@foxmail.com）**
-
-<br>
 
 ####	配置环境
 

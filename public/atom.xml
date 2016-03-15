@@ -5,7 +5,7 @@
   <subtitle><![CDATA[iOS 开发]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com//"/>
-  <updated>2016-02-22T10:46:30.000Z</updated>
+  <updated>2016-03-15T09:51:57.000Z</updated>
   <id>http://yoursite.com//</id>
   
   <author>
@@ -16,13 +16,287 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[内存管理和引用计数]]></title>
+    <link href="http://yoursite.com/2016/03/15/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E5%92%8C%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0/"/>
+    <id>http://yoursite.com/2016/03/15/内存管理和引用计数/</id>
+    <published>2016-03-15T09:35:11.000Z</published>
+    <updated>2016-03-15T09:51:57.000Z</updated>
+    <content type="html"><![CDATA[<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
+<blockquote>
+<p>学习笔记 一 之《Objective-C高级编程 iOS与OS X多线程和内存管理》</p>
+</blockquote>
+<h5 id="u7B2C_u4E00_u7AE0_uFF1A_u81EA_u52A8_u5F15_u7528_u8BA1_u6570"><a href="#u7B2C_u4E00_u7AE0_uFF1A_u81EA_u52A8_u5F15_u7528_u8BA1_u6570" class="headerlink" title="第一章：自动引用计数"></a>第一章：自动引用计数</h5><p><strong>内存管理/引用计数</strong></p>
+<p><code>ARC 使用条件：</code></p>
+<p>Xcode4.2，LLVM3.0，编译器设置 ARC 有效</p>
+<p><code>引用计数：</code></p>
+<p>1.自己生成的对象，自己所持有（alloc，new，copy，mutableCopy，allocMyObject，newThatObject，copyThis，mutableCopyYourObject）:</p>
+<ul>
+<li>alloc：自己生成并持有对象</li>
+<li>new：自己生成并持有对象</li>
+<li>copy：利用 NSCopying，各类实现 copyWithZone: 生成并持有对象的副本</li>
+<li>mutableCopy：利用 NSMutableCopying,各类实现 mutableCopyWithZone: 生成并持有对象的副本</li>
+</ul>
+<a id="more"></a>
+<p>2.非自己生成的对象，自己也能持有（retain）:</p>
+<ul>
+<li>通过 retain 方法，非自己生成的对象跟 alloc/new/copy/mutableCopy 方法生成并持有的对象一样，成为了自己所持有的</li>
+</ul>
+<p>3.不再需要自己持有的对象时释放（release）:</p>
+<ul>
+<li>release：自己持有的对象，一旦不再需要，持有者有义务释放该对象。</li>
+<li>autorelease： 不立即释放，注册到autoreleasepool 中，pool 结束时自动调用release</li>
+</ul>
+<p>4.非自己持有的对象无法释放：</p>
+<ul>
+<li>释放非自己持有的对象会造成程序崩溃</li>
+</ul>
+<p><code>GNUstep：</code></p>
+<p>是 Cocoa 框架的互换框架，两者的行为和实现方式非常相似。</p>
+<p><code>alloc/retain/release/dealloc 实现：</code></p>
+<p>1.alloc：</p>
+<pre><code>+ (id)alloc {
+    return [self allocWithZone: NSDefaultMallocZone()];
+}
++ (id)allocWithZone:(NSZone *)z { 
+    return NSAllocateObject(self, 0, z);
+}
+</code></pre><p>NSAllocateObject 函数分配对象</p>
+<pre><code>struct obj_layout {
+    NSUInteger retained;
+}
+inline id 
+NSAllocateObject(Class aClass, NSUInteger extraBytes, NSZone *zone) {
+    int size = 计算容纳对象所需内存的大小;
+    id new = NSZoneMalloc(zone, size);// 分配存放对象所需的内存空间
+    memset(new, 0, size);// 将该内存空间置为0
+    new = (id) &amp;((struct obj_layout *) new)[1];// 返回作为对象而使用的指针。
+}
+</code></pre><p>NSDefaultMallocZone、NSZoneMalloc 中的 NSZone， 为防止内存碎片化而引入的结构。根据使用对象的目的、对象的大小 分配内存，提高内存管理的效率。 </p>
+<p>多重区域防止内存碎片化。</p>
+<p>去掉NSZone 后简化的源代码：</p>
+<pre><code>struct obj_layout {
+    NSUInteger retained;// 保存引用计数，写入对象内存头部，
+}
++ (id)alloc {
+    int size = sizeof(struct obj_layout) + 对象大小；
+    struct obj_layout *p = (struct obj_layout *)calloc(1, size);
+    return (id)(p+1);
+}
+</code></pre><p>对象的引用计数可通过 retainCount 实例方法取得</p>
+<pre><code>id obj = [[NSObject alloc] init];
+NSLog(@&quot;retainCount = %d&quot;, [obj retainCount]);
+
+
+// NSObject.m
+- (NSUInteger)retainCount {
+    return NSExtraRefCount(self) + 1;
+}
+
+inline NSUInteger 
+NSExtraRefCount(id anObject) {
+    return ((struct obj_layout *) anObject)[-1].retained;// 由对象寻址找到对象内存头部，访问retained 变量
+}
+</code></pre><p>2.retain<br>I</p>
+<pre><code>//NSObject.m
+- (id)retain {
+    NSIncrementExtraRefCount(self);
+    return self;
+}
+
+inline void
+NSIncrementExtraRefCount(id anObject) {
+// 当 retained 变量 超出最大值时发生异常
+    if ((struct obj_layout *)anObject)[-1].retained == UINT_MAX     - 1) {
+        [NSException raise:NSInternalInconsistencyException format:@&quot;NSIncrementExtraRefCount() asked to increment too far&quot;];
+    }
+    ((sruct obj_layout *)anObject)[-1].retained++;
+}
+</code></pre><p>3.release </p>
+<pre><code>//NSObject.m
+- (void)release {
+    if(NSDecrementExtraRefCountWasZero(self)) {
+    [self dealloc];
+}
+
+inline BOOL
+NSDecrementExtraRefCount(id anObject) {
+    //    当retained 变量大于 0 时 减 1， 等于 0 时调用 dealloc 实例方法，废弃对象
+    if(((struct obj_layout *)anObject)[-1].retained == 0 ) {
+        return YES;
+    } else {
+        ((struct obj_layout *)anObject)[-1].retained--;
+        return NO;
+    }
+})
+</code></pre><p>4.dealloc </p>
+<pre><code>//NSObject.m
+- (void)dealloc {
+    NSDeallocateObject(self);
+}
+
+inline void
+NSDeallocateObject(id anObject) {
+    struct obj_layout *o = &amp;((struct obj_layout *)anObject)[-1];
+    free(0);// 仅废弃由 alloc 分配的内存块
+}
+</code></pre><p><code>苹果的实现：</code></p>
+<p>1.alloc</p>
+<pre><code>+alloc
++allocWithZone:
+class_createInstance
+calloc
+</code></pre><p>2.retainCount</p>
+<pre><code>-retainCount
+__CFDoExterRefOperation
+CFBaseicHashGetCountOfKey
+</code></pre><p>3.retain</p>
+<pre><code>-retain
+__CFDoExterRefOperation
+CFBasicHashAddValue
+</code></pre><p>4.release</p>
+<pre><code>-release
+__CFDoExterRefOperation
+CFBasicHashRemoveValue
+(CFBasicHashRemoveValue 返回 0  时，-release 调用 dealloc)
+
+
+//CFRuntime.c __CFDoExterRefOperation
+int __CFDoExterRefOperation(uintptr_r op, id obj) {
+    CFBasicHashRef table = 取得对象对应的散列表（obj）;
+    int count;
+
+    switch(op) {
+        case OPERATION_retainCount:
+            count = CFBasicHashGetCountOfKey(table, obj);
+            return count;
+        case OPERATION_retain:
+            CFBasicHashAddValue(table, obj);
+            return obj;
+        case OPERATION_release:
+            count = CFBasicHashRemoveValue(table, obj);
+            return 0 == count;
+    }
+}
+</code></pre><p>苹果的实现大概就是采用散列表（引用计数表）来管理引用计数</p>
+<p>1.GNUstep 引用计数保存在对象占用内存块头部的变量中，好处：</p>
+<ul>
+<li>少量代码即可完成</li>
+<li>能够统一管理引用计数用内存块与对象内存块</li>
+</ul>
+<p>2.苹果     引用计数保存在引用计数表的记录中，好处：</p>
+<ul>
+<li>对象用内存块的分配无需考虑内存块头部</li>
+<li>引用计数表各记录中存有内存块地址，可从各个记录追溯到各对象的内存块</li>
+</ul>
+<p>出现故障导致对象占用的内存块损坏，但只要引用计数表没有被破坏，就能够确认内存块的位置；应用计数表有助于检测各对象的持有者是否存在。</p>
+<p><code>autorelease：</code></p>
+<p>类似于C语言中自动变量（局部变量）的特性（若某自动变量超出其作用域，则其被自动废弃），超出作用域，release 方法会被调用，但编程人员可以设定变量的作用域</p>
+<p>[pool drain] 等同于 [obj release]</p>
+<p>使用方法：</p>
+<p>生成并持有 NSAutoreleasePool<br>调用已分配对象的 autorelease 实例方法<br>废弃 NSAutoreleasePool 对象</p>
+<p><code>autorelease GNUstep 实现：</code></p>
+<pre><code>//NSObject.m
+-（id）autorelease {
+    [NSAutoreleasePool addObject:self];
+}
+
+
+//NSAutoreleasePool.m
++ (void)addObject:(id)anObj {
+    NSAutpreleasePool *pool = 取得正在使用的NSAutoreleasePool 对象
+    if (pool != nil) {
+        [pool addObject:anObj];
+    } else {
+        NSLog(@&quot;NSAutoreleasePool 对象非存在状态下调用autorelease&quot;);
+    }
+}
+
+- (void)addObject:(id)anObj {
+    [array addObject:anObj];
+}
+
+- (void)drain {
+    [self dealloc];
+}
+- (void)dealloc {
+    [self emptyPool];
+    [array release];
+}
+- (void)emptyPool {
+    for (id obj in array) {
+        [obj release];
+    }
+}    
+</code></pre><p><code>autorelease 苹果实现：</code></p>
+<pre><code>class AutoreleasePoolPage {
+    static inline void *push() {
+        //相当于生成或持有 NSAutoreleasePool 类对象
+    }
+    static inline void *pop(void *token) {
+        //相当于废弃 NSAutoreleasePool 类对象
+        releaseAll();
+    }
+    static inline id autorelease(id obj) {
+        // 相当于NSAutoreleasePool 类的 addObject 类方法
+        AutoreleasePoolPage *autoreleasePoolPage = 
+        取得正在使用的 AutoreleasePoolPage 实例；
+        autpreleasePoolPage-&gt;add(obj);
+    }
+    id *add(id obj) {
+        //将对象追加到内部数组中；            
+    }
+    void releaseAll {
+        //调用内部数组中对象的release 实例方法；
+    }
+}
+void *objc_autoreleasePoolPush(void) { 
+    return AutoreleasePoolPage::push();
+}
+void *objc_autoreleasePoolPop(void *ctxt) {
+    AutoreleasePoolPage::pop(ctxt);
+}
+id *objc_autprelease(id obj) {
+    return  AutoreleasePoolPage::autorelease(obj);
+}
+</code></pre><p>NSAutoreleasePool 类的 showPools 类方法只能在 iOS 使用。在现在的运行时系统中，调试使用非公开函数_objc_autoreleasePoolPrint()</p>
+<pre><code>// 函数声明
+extern void _objc_autoreleasePoolPrint();
+
+// 调用输出
+_objc_autoreleasePoolPrint();
+</code></pre>]]></content>
+    <summary type="html">
+    <![CDATA[<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
+<blockquote>
+<p>学习笔记 一 之《Objective-C高级编程 iOS与OS X多线程和内存管理》</p>
+</blockquote>
+<h5 id="u7B2C_u4E00_u7AE0_uFF1A_u81EA_u52A8_u5F15_u7528_u8BA1_u6570"><a href="#u7B2C_u4E00_u7AE0_uFF1A_u81EA_u52A8_u5F15_u7528_u8BA1_u6570" class="headerlink" title="第一章：自动引用计数"></a>第一章：自动引用计数</h5><p><strong>内存管理/引用计数</strong></p>
+<p><code>ARC 使用条件：</code></p>
+<p>Xcode4.2，LLVM3.0，编译器设置 ARC 有效</p>
+<p><code>引用计数：</code></p>
+<p>1.自己生成的对象，自己所持有（alloc，new，copy，mutableCopy，allocMyObject，newThatObject，copyThis，mutableCopyYourObject）:</p>
+<ul>
+<li>alloc：自己生成并持有对象</li>
+<li>new：自己生成并持有对象</li>
+<li>copy：利用 NSCopying，各类实现 copyWithZone: 生成并持有对象的副本</li>
+<li>mutableCopy：利用 NSMutableCopying,各类实现 mutableCopyWithZone: 生成并持有对象的副本</li>
+</ul>]]>
+    
+    </summary>
+    
+      <category term="Objective-C高级编程 iOS与OS X多线程和内存管理" scheme="http://yoursite.com/tags/Objective-C%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B-iOS%E4%B8%8EOS-X%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/"/>
+    
+      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[提交开发效率的工具和插件]]></title>
     <link href="http://yoursite.com/2016/02/22/%E6%8F%90%E4%BA%A4%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87%E7%9A%84%E5%B7%A5%E5%85%B7%E5%92%8C%E6%8F%92%E4%BB%B6/"/>
     <id>http://yoursite.com/2016/02/22/提交开发效率的工具和插件/</id>
     <published>2016-02-22T10:42:25.000Z</published>
-    <updated>2016-02-22T10:46:30.000Z</updated>
-    <content type="html"><![CDATA[<p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p><br></p>
+    <updated>2016-03-15T09:53:17.000Z</updated>
+    <content type="html"><![CDATA[<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
 <h4 id="Xcode_u63D2_u4EF6"><a href="#Xcode_u63D2_u4EF6" class="headerlink" title="Xcode插件"></a>Xcode插件</h4><ul>
 <li><p>1.Alcatraz,管理Xcode插件<br><a href="https://github.com/alcatraz/Alcatraz" target="_blank" rel="external">https://github.com/alcatraz/Alcatraz</a></p>
 </li>
@@ -60,8 +334,7 @@
 </ul>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p><br></p>
+    <![CDATA[<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
 <h4 id="Xcode_u63D2_u4EF6"><a href="#Xcode_u63D2_u4EF6" class="headerlink" title="Xcode插件"></a>Xcode插件</h4><ul>
 <li><p>1.Alcatraz,管理Xcode插件<br><a href="https://github.com/alcatraz/Alcatraz">https://github.com/alcatraz/Alcatraz</a></p>
 </li>
@@ -75,6 +348,8 @@
     
       <category term="开发" scheme="http://yoursite.com/tags/%E5%BC%80%E5%8F%91/"/>
     
+      <category term="效率" scheme="http://yoursite.com/tags/%E6%95%88%E7%8E%87/"/>
+    
       <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
     
   </entry>
@@ -84,9 +359,9 @@
     <link href="http://yoursite.com/2016/01/08/Storyboard%E5%A4%8D%E6%9D%82-UI-%E5%A4%84%E7%90%86%E6%B1%87%E6%80%BB/"/>
     <id>http://yoursite.com/2016/01/08/Storyboard复杂-UI-处理汇总/</id>
     <published>2016-01-08T08:47:21.000Z</published>
-    <updated>2016-01-08T09:36:36.000Z</updated>
-    <content type="html"><![CDATA[<p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p><br><br>当我们在用 Storyboard 设计一些复杂的 UI 时，总觉得不是很好处理，约束不太容易正确添加。以下是我在这方面遇到的一些问题及找到的处理方法：</p>
+    <updated>2016-03-15T09:56:47.000Z</updated>
+    <content type="html"><![CDATA[<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
+<p>当我们在用 Storyboard 设计一些复杂的 UI 时，总觉得不是很好处理，约束不太容易正确添加。以下是我在这方面遇到的一些问题及找到的处理方法：</p>
 <h3 id="u5728UIScrollView_u4E2D_u5D4C_u5957_u591A_u4E2ATableView_3A"><a href="#u5728UIScrollView_u4E2D_u5D4C_u5957_u591A_u4E2ATableView_3A" class="headerlink" title="在UIScrollView中嵌套多个TableView:"></a>在UIScrollView中嵌套多个TableView:</h3><p><a href="http://www.jianshu.com/p/bad9bde9b81e" target="_blank" rel="external">http://www.jianshu.com/p/bad9bde9b81e</a><br>文中 demo 是基于 Swift 语言做的（还好我刚把 Swift 语法看完，能看懂 demo.😉）</p>
 <a id="more"></a>
 <p><br></p>
@@ -98,8 +373,8 @@
 <pre><code>self.edgesForExtendedLayout = UIRectEdgeNone
 </code></pre>]]></content>
     <summary type="html">
-    <![CDATA[<p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p><br><br>当我们在用 Storyboard 设计一些复杂的 UI 时，总觉得不是很好处理，约束不太容易正确添加。以下是我在这方面遇到的一些问题及找到的处理方法：</p>
+    <![CDATA[<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
+<p>当我们在用 Storyboard 设计一些复杂的 UI 时，总觉得不是很好处理，约束不太容易正确添加。以下是我在这方面遇到的一些问题及找到的处理方法：</p>
 <h3 id="u5728UIScrollView_u4E2D_u5D4C_u5957_u591A_u4E2ATableView_3A"><a href="#u5728UIScrollView_u4E2D_u5D4C_u5957_u591A_u4E2ATableView_3A" class="headerlink" title="在UIScrollView中嵌套多个TableView:"></a>在UIScrollView中嵌套多个TableView:</h3><p><a href="http://www.jianshu.com/p/bad9bde9b81e">http://www.jianshu.com/p/bad9bde9b81e</a><br>文中 demo 是基于 Swift 语言做的（还好我刚把 Swift 语法看完，能看懂 demo.😉）</p>]]>
     
     </summary>
@@ -117,9 +392,8 @@
     <link href="http://yoursite.com/2015/12/23/2016%E5%B9%B4%E8%AE%A1%E5%88%92/"/>
     <id>http://yoursite.com/2015/12/23/2016年计划/</id>
     <published>2015-12-23T04:13:56.000Z</published>
-    <updated>2016-01-08T09:36:11.000Z</updated>
-    <content type="html"><![CDATA[<p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p><br></p>
+    <updated>2016-03-15T09:55:44.000Z</updated>
+    <content type="html"><![CDATA[<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
 <h3 id="u77E5_u8BC6_uFF1A"><a href="#u77E5_u8BC6_uFF1A" class="headerlink" title="知识："></a>知识：</h3><ul>
 <li>金融 </li>
 <li>理财</li>
@@ -140,8 +414,7 @@
 <h3 id="u4EA4_u53CB"><a href="#u4EA4_u53CB" class="headerlink" title="交友"></a>交友</h3><p>至少一位知心朋友</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p><br></p>
+    <![CDATA[<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
 <h3 id="u77E5_u8BC6_uFF1A"><a href="#u77E5_u8BC6_uFF1A" class="headerlink" title="知识："></a>知识：</h3><ul>
 <li>金融 </li>
 <li>理财</li>
@@ -167,9 +440,11 @@
     <link href="http://yoursite.com/2015/12/23/2015%E5%B9%B4%E6%80%BB%E7%BB%93/"/>
     <id>http://yoursite.com/2015/12/23/2015年总结/</id>
     <published>2015-12-23T04:09:53.000Z</published>
-    <updated>2016-01-08T09:36:07.000Z</updated>
-    <content type="html"><![CDATA[<p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p><br><br><code>人生天地之间,若白驹之过郤(隙),忽然而已.————《庄子·知北游》</code></p>
+    <updated>2016-03-15T09:55:21.000Z</updated>
+    <content type="html"><![CDATA[<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
+<blockquote>
+<p>人生天地之间,若白驹之过郤(隙),忽然而已.————《庄子·知北游》</p>
+</blockquote>
 <p><br><br>光阴似箭，日月如梭，转眼间2015年仅剩几个日夜。</p>
 <p>从12年11月29号开始接触 iOS 开发，到现在也3年时间了。一直浑浑噩噩的过着上班工作，下班休息，既无总结也无规划的日子。最近突然间想写写自己在15年做了些什么，学到了些什么，并计划下下一年度的任务和目标。</p>
 <a id="more"></a>
@@ -191,8 +466,10 @@
 <h3 id="u56DE_u987E_u603B_u7ED3"><a href="#u56DE_u987E_u603B_u7ED3" class="headerlink" title="回顾总结"></a>回顾总结</h3><p>工作这些年，也没怎么好好的总结过，现在回顾下，感觉自己只是白白添了岁数，浪费了一年又的光阴。所以，计划16年多读点书，多学点技术，顺便要改变下自己的性格，至少交一位知心的朋友。</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p><br><br><code>人生天地之间,若白驹之过郤(隙),忽然而已.————《庄子·知北游》</code></p>
+    <![CDATA[<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
+<blockquote>
+<p>人生天地之间,若白驹之过郤(隙),忽然而已.————《庄子·知北游》</p>
+</blockquote>
 <p><br><br>光阴似箭，日月如梭，转眼间2015年仅剩几个日夜。</p>
 <p>从12年11月29号开始接触 iOS 开发，到现在也3年时间了。一直浑浑噩噩的过着上班工作，下班休息，既无总结也无规划的日子。最近突然间想写写自己在15年做了些什么，学到了些什么，并计划下下一年度的任务和目标。</p>]]>
     
@@ -206,12 +483,11 @@
   
   <entry>
     <title><![CDATA[使用 hexo 搭建博客]]></title>
-    <link href="http://yoursite.com/2015/12/23/%E4%BD%BF%E7%94%A8-hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/"/>
-    <id>http://yoursite.com/2015/12/23/使用-hexo-搭建博客/</id>
+    <link href="http://yoursite.com/2015/12/23/%E4%BD%BF%E7%94%A8-Hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://yoursite.com/2015/12/23/使用-Hexo-搭建博客/</id>
     <published>2015-12-23T03:39:45.000Z</published>
-    <updated>2016-01-08T09:36:17.000Z</updated>
-    <content type="html"><![CDATA[<p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p><br></p>
+    <updated>2016-03-15T09:55:55.000Z</updated>
+    <content type="html"><![CDATA[<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
 <h4 id="u914D_u7F6E_u73AF_u5883"><a href="#u914D_u7F6E_u73AF_u5883" class="headerlink" title="配置环境"></a>配置环境</h4><p> 安装 homebrew：</p>
 <pre><code>ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
 </code></pre><p>安装node.js：</p>
@@ -250,8 +526,7 @@
 <pre><code>hexo deploy
 </code></pre>]]></content>
     <summary type="html">
-    <![CDATA[<p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p><br></p>
+    <![CDATA[<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
 <h4 id="u914D_u7F6E_u73AF_u5883"><a href="#u914D_u7F6E_u73AF_u5883" class="headerlink" title="配置环境"></a>配置环境</h4><p> 安装 homebrew：</p>
 <pre><code>ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
 </code></pre><p>安装node.js：</p>
@@ -273,7 +548,7 @@
     <link href="http://yoursite.com/2015/12/23/hello-world/"/>
     <id>http://yoursite.com/2015/12/23/hello-world/</id>
     <published>2015-12-23T03:13:33.000Z</published>
-    <updated>2015-12-25T02:32:14.000Z</updated>
+    <updated>2016-03-14T04:24:39.000Z</updated>
     <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
 <a id="more"></a>
 <h2 id="Quick_Start"><a href="#Quick_Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create_a_new_post"><a href="#Create_a_new_post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
@@ -301,9 +576,8 @@
     <link href="http://yoursite.com/2015/12/22/NSLayoutConstraint-%E7%9A%84%E5%A6%99%E7%94%A8-%E8%B4%B5%E9%87%91%E5%B1%9E%EF%BC%89/"/>
     <id>http://yoursite.com/2015/12/22/NSLayoutConstraint-的妙用-贵金属）/</id>
     <published>2015-12-22T04:01:35.000Z</published>
-    <updated>2016-01-08T09:36:32.000Z</updated>
-    <content type="html"><![CDATA[<p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p><br></p>
+    <updated>2016-03-15T09:56:30.000Z</updated>
+    <content type="html"><![CDATA[<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
 <p>贵金属项目，是第一次使用 storyboard 开发，以下是初次接触 NSLayoutConstraint，遇到的问题：</p>
 <a id="more"></a>
 <h4 id="u95EE_u98981_uFF1A"><a href="#u95EE_u98981_uFF1A" class="headerlink" title="问题1："></a>问题1：</h4><p>用 storyboard 搭建的 UI，在 tableView 的 header 中的控件的高度是不固定的，条件1下控件高90，条件2下控件高45,所以就考虑用代码控制控件的高度。</p>
@@ -325,8 +599,7 @@ self.surplusHeightLayout.constant = 45;
 </code></pre><p>在 storyboard 中设置分割线的高为任意值，选中分割线的高的约束，修改其类型NSLayoutConstraint为创建的NSLayoutConstraintHairline即可达到目的。</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p><br></p>
+    <![CDATA[<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
 <p>贵金属项目，是第一次使用 storyboard 开发，以下是初次接触 NSLayoutConstraint，遇到的问题：</p>]]>
     
     </summary>
@@ -342,12 +615,12 @@ self.surplusHeightLayout.constant = 45;
     <link href="http://yoursite.com/2015/11/20/Bug-%E5%B0%8F%E8%AE%B0%EF%BC%88%E8%B4%B5%E9%87%91%E5%B1%9E%EF%BC%89/"/>
     <id>http://yoursite.com/2015/11/20/Bug-小记（贵金属）/</id>
     <published>2015-11-20T03:13:33.000Z</published>
-    <updated>2016-01-22T02:51:17.000Z</updated>
-    <content type="html"><![CDATA[<p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p><br></p>
+    <updated>2016-03-15T10:20:49.000Z</updated>
+    <content type="html"><![CDATA[<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
 <p>最近在修复 APP 的 Bug，遇到了几个因对 SDK 不熟 造成的 Bug。如下：<br><br></p>
 <a id="more"></a>
-<h4 id="Bug1_uFF1A_u70B9_u51FB_u83B7_u53D6_u9A8C_u8BC1_u7801_u540E_uFF0C_u6CA1_u6709_u8FDB_u884C_u5012_u8BA1_u65F6_uFF0C_u4E14_u4E0D_u80FD_u518D_u6B21_u70B9_u51FB"><a href="#Bug1_uFF1A_u70B9_u51FB_u83B7_u53D6_u9A8C_u8BC1_u7801_u540E_uFF0C_u6CA1_u6709_u8FDB_u884C_u5012_u8BA1_u65F6_uFF0C_u4E14_u4E0D_u80FD_u518D_u6B21_u70B9_u51FB" class="headerlink" title="Bug1：点击获取验证码后，没有进行倒计时，且不能再次点击"></a>Bug1：点击获取验证码后，没有进行倒计时，且不能再次点击</h4><p>使用 GCD 写的倒计时，源代码：</p>
+<p><strong>Bug1：点击获取验证码后，没有进行倒计时，且不能再次点击</strong></p>
+<p>使用 GCD 写的倒计时，源代码：</p>
 <pre><code>_isCountDown = YES;
 __block int timeout=kCountdownTime; //倒计时时间
 dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -380,21 +653,22 @@ dispatch_resume(_timer);
 <font color="green"><strong>解决方案：</strong></font>
 
 <pre><code>[sendAuthCodeBtn setTitle:@&quot;发送验证码&quot; forState:UIControlStateDisabled]; 
-</code></pre><p>关键在于这行代码。设置了禁用状态下的文字。顺利解决了 这个 Bug。</p>
-<p><br></p>
-<h4 id="Bug2_uFF1A_u5012_u8BA1_u65F6_UIButton__u4E0A_u7684_u6587_u5B57_u53D8_u66F4_u4F1A_u6709_u95EA_u70C1_u6548_u679C"><a href="#Bug2_uFF1A_u5012_u8BA1_u65F6_UIButton__u4E0A_u7684_u6587_u5B57_u53D8_u66F4_u4F1A_u6709_u95EA_u70C1_u6548_u679C" class="headerlink" title="Bug2：倒计时 UIButton 上的文字变更会有闪烁效果"></a>Bug2：倒计时 UIButton 上的文字变更会有闪烁效果</h4><p><br><br>UIButton 设置 title时会闪烁。</p>
-<font color="brown"><strong>原因：</strong></font>UIButton 的 buttonType 是 System 类型时会出现该种问题<br><br><font color="green"><strong>解决方案：</strong></font>UIButton 的 buttonType 设置为 Custom 类型时不会出现闪烁。<br><br><br><br>####    Bug3：在工程中添加plist 文件，用代码对其进行写入操作，在模拟器中按代码执行，但在真机上plist中内容未改变<br><br><br>plist 文件中是一个数组，元素是多个字典，在模拟器上运行一切正常，但测试人员用真机测试时发现问题，无法写入到 plist 文件中。<br><br><font color="brown"><strong>原因：</strong></font> 打包在 ipa 的文件是无法更改的。一句话：无权限修改（知道真相的我眼泪掉下来~)，只可进行读取操作。<br><br><font color="green"><strong>解决方案：</strong></font>在 app 启动的时候判断是否在 Document 文件夹下存在相同的 plsit 文件。 不存在，获取沙盒下 plist 文件中的内容，并写入Document 文件夹下的 plsit 文件。存在则不做任何处理。（之所以选择这种方式而不选择直接将内容用代码写入 Document 文件夹下来解决这个问题，是因为个人认为在开发时方便对工程中plsit 文件内容的更改）<br><br><br><br><br><strong>*<br><br><br><br>
+</code></pre><p>关键在于这行代码。设置了禁用状态下的文字。顺利解决了 这个 Bug。<br><br></p>
+<p><strong>Bug2：倒计时 UIButton 上的文字变更会有闪烁效果</strong></p>
+<p>UIButton 设置 title时会闪烁。</p>
+<font color="brown"><strong>原因：</strong></font>UIButton 的 buttonType 是 System 类型时会出现该种问题<br><br><font color="green"><strong>解决方案：</strong></font>UIButton 的 buttonType 设置为 Custom 类型时不会出现闪烁。<br><br><br><br><strong>Bug3：在工程中添加plist 文件，用代码对其进行写入操作，在模拟器中按代码执行，但在真机上plist中内容未改变</strong><br><br>plist 文件中是一个数组，元素是多个字典，在模拟器上运行一切正常，但测试人员用真机测试时发现问题，无法写入到 plist 文件中。<br><br><font color="brown"><strong>原因：</strong></font> 打包在 ipa 的文件是无法更改的。一句话：无权限修改（知道真相的我眼泪掉下来~)，只可进行读取操作。<br><br><font color="green"><strong>解决方案：</strong></font>在 app 启动的时候判断是否在 Document 文件夹下存在相同的 plsit 文件。 不存在，获取沙盒下 plist 文件中的内容，并写入Document 文件夹下的 plsit 文件。存在则不做任何处理。（之所以选择这种方式而不选择直接将内容用代码写入 Document 文件夹下来解决这个问题，是因为个人认为在开发时方便对工程中plsit 文件内容的更改）<br><br><br><br><font color="pink"><strong>更新时间：2016年1月20日</strong></font>
 
-</strong>时间：2016年1月20日<strong><br><br><br><br><br>####    Bug1：进入某个页面，App崩溃，崩溃原因是：[NSCFType set]: unrecognized selector sent to instance 0x4d80b00’<br><br><br><br><br><font color="brown"></font></strong>原因：<strong> 在新页面使用了NSMutableAttributedString，使用方式导致了崩溃，目前无法解释，使用方法如下：<br><br><br>     NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:prodNameStr];<br>    [attriString addAttribute:NSFontAttributeName<br>                         value:[UIFont systemFontOfSize:16.0]<br>                         range:NSMakeRange(2, 2)];<br><br>    [attriString addAttribute:NSForegroundColorAttributeName<br>                         value:[UIColor redColor]<br>                         range:NSMakeRange(2, 2)];<br><br><br><font color="green"></font></strong>解决方案：**
+<p><strong>Bug1：进入某个页面，App崩溃，崩溃原因是：[NSCFType set]: unrecognized selector sent to instance 0x4d80b00’</strong></p>
+<font color="brown"><strong>原因：</strong></font> 在新页面使用了NSMutableAttributedString，使用方式导致了崩溃，目前无法解释，使用方法如下：<br><br><br><code>NSMutableAttributedString *attriString =     [[NSMutableAttributedString alloc] initWithString:prodNameStr];
+    [attriString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:16.0] range:NSMakeRange(2, 2)];
+    [attriString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(2, 2)];</code><br><br><br><br><font color="green"><strong>解决方案：</strong></font>
 
 
-<pre><code> NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:prodNameStr];
-
-[attriString setAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12.0], NSForegroundColorAttributeName:ColorWithHexString(GJS_COLOR_TEXT_GRAY)} range:NSMakeRange(prodNameStr.length - time.length, time.length)];
+<pre><code>NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:prodNameStr];
+[attriString setAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12.0], NSForegroundColorAttributeName:ColorWithHexString(GJS_COLOR_TEXT_GRAY)} range:NSMakeRange(prodNameStr.length - time.length, time.length)];`
 </code></pre>]]></content>
     <summary type="html">
-    <![CDATA[<p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p><br></p>
+    <![CDATA[<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
 <p>最近在修复 APP 的 Bug，遇到了几个因对 SDK 不熟 造成的 Bug。如下：<br></br></p>]]>
     
     </summary>
@@ -412,9 +686,8 @@ dispatch_resume(_timer);
     <link href="http://yoursite.com/2015/09/16/%E6%8C%87%E7%BA%B9%E8%A7%A3%E9%94%81/"/>
     <id>http://yoursite.com/2015/09/16/指纹解锁/</id>
     <published>2015-09-16T03:39:45.000Z</published>
-    <updated>2016-01-22T02:43:18.000Z</updated>
-    <content type="html"><![CDATA[<p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p><br></p>
+    <updated>2016-03-15T09:56:06.000Z</updated>
+    <content type="html"><![CDATA[<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
 <p>iOS8 指纹解锁的API，<a href="http://www.bubuko.com/infodetail-726115.html" target="_blank" rel="external">这篇文章</a>解释的非常清楚。  </p>
 <p>本文主要针对在实际使用中遇到的问题及解决方法，假定已经了解指纹解锁API，如不了解API,请先移步<a href="http://www.bubuko.com/infodetail-726115.html" target="_blank" rel="external">指纹解锁的API说明</a></p>
 <p>项目之前一直使用的是手势密码，近来要增加 iOS8 新出的指纹解锁功能。需求是在设置中添加指纹解锁开关 </p>
@@ -506,8 +779,7 @@ return isDeviceSupportTouchId;
 <p>待用9.2系统的真机运行时，半信半疑的把其改用了dispatch_async，并没有崩溃。但使用dispatch_sync确实崩溃了。</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p><br></p>
+    <![CDATA[<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
 <p>iOS8 指纹解锁的API，<a href="http://www.bubuko.com/infodetail-726115.html">这篇文章</a>解释的非常清楚。  </p>
 <p>本文主要针对在实际使用中遇到的问题及解决方法，假定已经了解指纹解锁API，如不了解API,请先移步<a href="http://www.bubuko.com/infodetail-726115.html">指纹解锁的API说明</a></p>
 <p>项目之前一直使用的是手势密码，近来要增加 iOS8 新出的指纹解锁功能。需求是在设置中添加指纹解锁开关 </p>]]>

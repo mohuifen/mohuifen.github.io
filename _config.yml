@@ -76,6 +76,12 @@ deploy:
   type: git
   repository: git@gitcafe.com:mohuifen/mohuifen.git
   branch: gitcafe-pages
+   #我们是使用 git 来部署的。
+  type: git
+  # git 仓库的地址。
+  repo: https://git.coding.net/lrf/mohuifen.git
+  # 分支名称。
+  branch: master
 
 # 自动生成sitemap
 sitemap:

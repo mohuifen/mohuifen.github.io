@@ -3,10 +3,8 @@ date: 2016-01-08 16:47:21
 categories: iOS
 tags: [Storyboard,UIScrollView]
 ---
-<br>
 **作者：秋儿（lvruifei@foxmail.com）**
 
-<br>
 当我们在用 Storyboard 设计一些复杂的 UI 时，总觉得不是很好处理，约束不太容易正确添加。以下是我在这方面遇到的一些问题及找到的处理方法：
 
 ###	在UIScrollView中嵌套多个TableView:

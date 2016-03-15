@@ -6,18 +6,13 @@ categories: iOS
 
 tags: [Bug,贵金属]
 ---
-
-
-<br>
 **作者：秋儿（lvruifei@foxmail.com）**
-
-<br>
 
 最近在修复 APP 的 Bug，遇到了几个因对 SDK 不熟 造成的 Bug。如下：
 </br>
 
 <!-- more -->
-####	Bug1：点击获取验证码后，没有进行倒计时，且不能再次点击
+**Bug1：点击获取验证码后，没有进行倒计时，且不能再次点击**
 
 
 使用 GCD 写的倒计时，源代码：
@@ -63,59 +58,44 @@ tags: [Bug,贵金属]
 
 
 关键在于这行代码。设置了禁用状态下的文字。顺利解决了 这个 Bug。
+</br>
 
-</br>
-####	Bug2：倒计时 UIButton 上的文字变更会有闪烁效果
-</br>
+**Bug2：倒计时 UIButton 上的文字变更会有闪烁效果**
+
 UIButton 设置 title时会闪烁。
 
 <font color=brown>**原因：**</font>UIButton 的 buttonType 是 System 类型时会出现该种问题
 
 <font color=green>**解决方案：**</font>UIButton 的 buttonType 设置为 Custom 类型时不会出现闪烁。
+</br>
 
-</br>
-####	Bug3：在工程中添加plist 文件，用代码对其进行写入操作，在模拟器中按代码执行，但在真机上plist中内容未改变
-</br>
+**Bug3：在工程中添加plist 文件，用代码对其进行写入操作，在模拟器中按代码执行，但在真机上plist中内容未改变**
+
 plist 文件中是一个数组，元素是多个字典，在模拟器上运行一切正常，但测试人员用真机测试时发现问题，无法写入到 plist 文件中。
 
 <font color=brown>**原因：**</font> 打包在 ipa 的文件是无法更改的。一句话：无权限修改（知道真相的我眼泪掉下来~)，只可进行读取操作。
 
 <font color=green>**解决方案：**</font>在 app 启动的时候判断是否在 Document 文件夹下存在相同的 plsit 文件。 不存在，获取沙盒下 plist 文件中的内容，并写入Document 文件夹下的 plsit 文件。存在则不做任何处理。（之所以选择这种方式而不选择直接将内容用代码写入 Document 文件夹下来解决这个问题，是因为个人认为在开发时方便对工程中plsit 文件内容的更改）
-
-<br>
-
-*** 
-
-
-<br>
-
-**时间：2016年1月20日**
-
-<br>
-
-####	Bug1：进入某个页面，App崩溃，崩溃原因是：[NSCFType set]: unrecognized selector sent to instance 0x4d80b00'
-
 </br>
+
+<font color=pink>**更新时间：2016年1月20日**</font>
+
+**Bug1：进入某个页面，App崩溃，崩溃原因是：[NSCFType set]: unrecognized selector sent to instance 0x4d80b00'**
 
 <font color=brown>**原因：**</font> 在新页面使用了NSMutableAttributedString，使用方式导致了崩溃，目前无法解释，使用方法如下：
 
 
-	 NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:prodNameStr];
-    [attriString addAttribute:NSFontAttributeName
-                         value:[UIFont systemFontOfSize:16.0]
-                         range:NSMakeRange(2, 2)];
-                         
-    [attriString addAttribute:NSForegroundColorAttributeName
-                         value:[UIColor redColor]
-                         range:NSMakeRange(2, 2)];
+`	NSMutableAttributedString *attriString = 	[[NSMutableAttributedString alloc] initWithString:prodNameStr];
+	[attriString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:16.0] range:NSMakeRange(2, 2)];
+	[attriString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(2, 2)];`
 
+   	
 
 <font color=green>**解决方案：**</font>
 
 
-	 NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:prodNameStr];
-	 
-    [attriString setAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12.0], NSForegroundColorAttributeName:ColorWithHexString(GJS_COLOR_TEXT_GRAY)} range:NSMakeRange(prodNameStr.length - time.length, time.length)];
+	NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:prodNameStr];
+	[attriString setAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12.0], NSForegroundColorAttributeName:ColorWithHexString(GJS_COLOR_TEXT_GRAY)} range:NSMakeRange(prodNameStr.length - time.length, time.length)];`
 
 
 

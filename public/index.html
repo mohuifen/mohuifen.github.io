@@ -127,7 +127,7 @@ var _hmt = _hmt || [];
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Bug/" style="font-size: 10px;">Bug</a> <a href="/tags/Storyboard/" style="font-size: 10px;">Storyboard</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/hexo/" style="font-size: 20px;">hexo</a> <a href="/tags/开发/" style="font-size: 10px;">开发</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/指纹解锁/" style="font-size: 10px;">指纹解锁</a> <a href="/tags/计划/" style="font-size: 10px;">计划</a> <a href="/tags/贵金属/" style="font-size: 20px;">贵金属</a>
+						<a href="/tags/Bug/" style="font-size: 10px;">Bug</a> <a href="/tags/Objective-C高级编程-iOS与OS-X多线程和内存管理/" style="font-size: 10px;">Objective-C高级编程 iOS与OS X多线程和内存管理</a> <a href="/tags/Storyboard/" style="font-size: 10px;">Storyboard</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/hexo/" style="font-size: 20px;">hexo</a> <a href="/tags/开发/" style="font-size: 10px;">开发</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/指纹解锁/" style="font-size: 10px;">指纹解锁</a> <a href="/tags/效率/" style="font-size: 10px;">效率</a> <a href="/tags/计划/" style="font-size: 10px;">计划</a> <a href="/tags/贵金属/" style="font-size: 20px;">贵金属</a>
 					</div>
 				</section>
 				
@@ -201,6 +201,84 @@ var _hmt = _hmt || [];
 
       <div class="body-wrap">
   
+    <article id="post-内存管理和引用计数" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/15/内存管理和引用计数/" class="article-date">
+  	<time datetime="2016-03-15T09:35:11.000Z" itemprop="datePublished">2016-03-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/15/内存管理和引用计数/">内存管理和引用计数</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
+<blockquote>
+<p>学习笔记 一 之《Objective-C高级编程 iOS与OS X多线程和内存管理》</p>
+</blockquote>
+<h5 id="u7B2C_u4E00_u7AE0_uFF1A_u81EA_u52A8_u5F15_u7528_u8BA1_u6570"><a href="#u7B2C_u4E00_u7AE0_uFF1A_u81EA_u52A8_u5F15_u7528_u8BA1_u6570" class="headerlink" title="第一章：自动引用计数"></a>第一章：自动引用计数</h5><p><strong>内存管理/引用计数</strong></p>
+<p><code>ARC 使用条件：</code></p>
+<p>Xcode4.2，LLVM3.0，编译器设置 ARC 有效</p>
+<p><code>引用计数：</code></p>
+<p>1.自己生成的对象，自己所持有（alloc，new，copy，mutableCopy，allocMyObject，newThatObject，copyThis，mutableCopyYourObject）:</p>
+<ul>
+<li>alloc：自己生成并持有对象</li>
+<li>new：自己生成并持有对象</li>
+<li>copy：利用 NSCopying，各类实现 copyWithZone: 生成并持有对象的副本</li>
+<li>mutableCopy：利用 NSMutableCopying,各类实现 mutableCopyWithZone: 生成并持有对象的副本</li>
+</ul>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Objective-C高级编程-iOS与OS-X多线程和内存管理/">Objective-C高级编程 iOS与OS X多线程和内存管理</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/03/15/内存管理和引用计数/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-提交开发效率的工具和插件" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -227,8 +305,7 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p><br></p>
+        <p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
 <h4 id="Xcode_u63D2_u4EF6"><a href="#Xcode_u63D2_u4EF6" class="headerlink" title="Xcode插件"></a>Xcode插件</h4><ul>
 <li><p>1.Alcatraz,管理Xcode插件<br><a href="https://github.com/alcatraz/Alcatraz">https://github.com/alcatraz/Alcatraz</a></p>
 </li>
@@ -244,7 +321,7 @@ var _hmt = _hmt || [];
       
       
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/开发/">开发</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/开发/">开发</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/效率/">效率</a></li></ul>
 	</div>
 
       
@@ -300,8 +377,8 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p><br><br>当我们在用 Storyboard 设计一些复杂的 UI 时，总觉得不是很好处理，约束不太容易正确添加。以下是我在这方面遇到的一些问题及找到的处理方法：</p>
+        <p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
+<p>当我们在用 Storyboard 设计一些复杂的 UI 时，总觉得不是很好处理，约束不太容易正确添加。以下是我在这方面遇到的一些问题及找到的处理方法：</p>
 <h3 id="u5728UIScrollView_u4E2D_u5D4C_u5957_u591A_u4E2ATableView_3A"><a href="#u5728UIScrollView_u4E2D_u5D4C_u5957_u591A_u4E2ATableView_3A" class="headerlink" title="在UIScrollView中嵌套多个TableView:"></a>在UIScrollView中嵌套多个TableView:</h3><p><a href="http://www.jianshu.com/p/bad9bde9b81e">http://www.jianshu.com/p/bad9bde9b81e</a><br>文中 demo 是基于 Swift 语言做的（还好我刚把 Swift 语法看完，能看懂 demo.😉）</p>
       
     </div>
@@ -366,8 +443,7 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p><br></p>
+        <p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
 <h3 id="u77E5_u8BC6_uFF1A"><a href="#u77E5_u8BC6_uFF1A" class="headerlink" title="知识："></a>知识：</h3><ul>
 <li>金融 </li>
 <li>理财</li>
@@ -442,8 +518,10 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p><br><br><code>人生天地之间,若白驹之过郤(隙),忽然而已.————《庄子·知北游》</code></p>
+        <p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
+<blockquote>
+<p>人生天地之间,若白驹之过郤(隙),忽然而已.————《庄子·知北游》</p>
+</blockquote>
 <p><br><br>光阴似箭，日月如梭，转眼间2015年仅剩几个日夜。</p>
 <p>从12年11月29号开始接触 iOS 开发，到现在也3年时间了。一直浑浑噩噩的过着上班工作，下班休息，既无总结也无规划的日子。最近突然间想写写自己在15年做了些什么，学到了些什么，并计划下下一年度的任务和目标。</p>
       
@@ -483,10 +561,10 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-使用-hexo-搭建博客" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-使用-Hexo-搭建博客" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/12/23/使用-hexo-搭建博客/" class="article-date">
+      <a href="/2015/12/23/使用-Hexo-搭建博客/" class="article-date">
   	<time datetime="2015-12-23T03:39:45.000Z" itemprop="datePublished">2015-12-23</time>
 </a>
     </div>
@@ -500,7 +578,7 @@ var _hmt = _hmt || [];
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/23/使用-hexo-搭建博客/">使用 hexo 搭建博客</a>
+      <a class="article-title" href="/2015/12/23/使用-Hexo-搭建博客/">使用 hexo 搭建博客</a>
     </h1>
   
 
@@ -509,8 +587,7 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p><br></p>
+        <p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
 <h4 id="u914D_u7F6E_u73AF_u5883"><a href="#u914D_u7F6E_u73AF_u5883" class="headerlink" title="配置环境"></a>配置环境</h4><p> 安装 homebrew：</p>
 <pre><code>ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
 </code></pre><p>安装node.js：</p>
@@ -536,7 +613,7 @@ var _hmt = _hmt || [];
 
       
         <p class="article-more-link">
-          <a  href="/2015/12/23/使用-hexo-搭建博客/#more">more >></a>
+          <a  href="/2015/12/23/使用-Hexo-搭建博客/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -645,8 +722,7 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p><br></p>
+        <p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
 <p>贵金属项目，是第一次使用 storyboard 开发，以下是初次接触 NSLayoutConstraint，遇到的问题：</p>
       
     </div>
@@ -711,8 +787,7 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p><br></p>
+        <p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
 <p>最近在修复 APP 的 Bug，遇到了几个因对 SDK 不熟 造成的 Bug。如下：<br></br></p>
       
     </div>
@@ -777,8 +852,7 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><br><br><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p><br></p>
+        <p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
 <p>iOS8 指纹解锁的API，<a href="http://www.bubuko.com/infodetail-726115.html">这篇文章</a>解释的非常清楚。  </p>
 <p>本文主要针对在实际使用中遇到的问题及解决方法，假定已经了解指纹解锁API，如不了解API,请先移步<a href="http://www.bubuko.com/infodetail-726115.html">指纹解锁的API说明</a></p>
 <p>项目之前一直使用的是手势密码，近来要增加 iOS8 新出的指纹解锁功能。需求是在设置中添加指纹解锁开关 </p>
