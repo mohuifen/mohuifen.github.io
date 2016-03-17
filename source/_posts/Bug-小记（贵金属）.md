@@ -78,7 +78,7 @@ plist 文件中是一个数组，元素是多个字典，在模拟器上运行�
 <font color=green>**解决方案：**</font>在 app 启动的时候判断是否在 Document 文件夹下存在相同的 plsit 文件。 不存在，获取沙盒下 plist 文件中的内容，并写入Document 文件夹下的 plsit 文件。存在则不做任何处理。（之所以选择这种方式而不选择直接将内容用代码写入 Document 文件夹下来解决这个问题，是因为个人认为在开发时方便对工程中plsit 文件内容的更改）
 </br>
 
-<font color=pink>**更新时间：2016年1月20日**</font>
+<font color=pinkw>**更新时间：2016年1月20日**</font>
 
 **Bug1：进入某个页面，App崩溃，崩溃原因是：[NSCFType set]: unrecognized selector sent to instance 0x4d80b00'**
 

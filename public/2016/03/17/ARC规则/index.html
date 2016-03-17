@@ -4,24 +4,48 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Storyboard复杂 UI 处理汇总 | 秋儿</title>
+  <title>ARC规则 | 秋儿</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="作者：秋儿（lvruifei@foxmail.com）
-当我们在用 Storyboard 设计一些复杂的 UI 时，总觉得不是很好处理，约束不太容易正确添加。以下是我在这方面遇到的一些问题及找到的处理方法：
-在UIScrollView中嵌套多个TableView:http://www.jianshu.com/p/bad9bde9b81e文中 demo 是基于 Swift 语言做的（还好我刚把 Sw">
+
+学习笔记 二 之《Objective-C高级编程 iOS与OS X多线程和内存管理》
+
+第一章：自动引用计数ARC 规则
+ARC 所有权修饰符：
+
+__strong：
+  对对象强引用，变量超出其作用域时被废弃，强引用失效，对象也随之释放（id 类型和对象类型默认为 __strong 修饰符）
+
+__weak：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Storyboard复杂 UI 处理汇总">
-<meta property="og:url" content="http://yoursite.com/2016/01/08/Storyboard复杂-UI-处理汇总/index.html">
+<meta property="og:title" content="ARC规则">
+<meta property="og:url" content="http://yoursite.com/2016/03/17/ARC规则/index.html">
 <meta property="og:site_name" content="秋儿">
 <meta property="og:description" content="作者：秋儿（lvruifei@foxmail.com）
-当我们在用 Storyboard 设计一些复杂的 UI 时，总觉得不是很好处理，约束不太容易正确添加。以下是我在这方面遇到的一些问题及找到的处理方法：
-在UIScrollView中嵌套多个TableView:http://www.jianshu.com/p/bad9bde9b81e文中 demo 是基于 Swift 语言做的（还好我刚把 Sw">
-<meta property="og:updated_time" content="2016-03-15T09:56:47.000Z">
+
+学习笔记 二 之《Objective-C高级编程 iOS与OS X多线程和内存管理》
+
+第一章：自动引用计数ARC 规则
+ARC 所有权修饰符：
+
+__strong：
+  对对象强引用，变量超出其作用域时被废弃，强引用失效，对象也随之释放（id 类型和对象类型默认为 __strong 修饰符）
+
+__weak：">
+<meta property="og:updated_time" content="2016-03-17T09:11:55.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Storyboard复杂 UI 处理汇总">
+<meta name="twitter:title" content="ARC规则">
 <meta name="twitter:description" content="作者：秋儿（lvruifei@foxmail.com）
-当我们在用 Storyboard 设计一些复杂的 UI 时，总觉得不是很好处理，约束不太容易正确添加。以下是我在这方面遇到的一些问题及找到的处理方法：
-在UIScrollView中嵌套多个TableView:http://www.jianshu.com/p/bad9bde9b81e文中 demo 是基于 Swift 语言做的（还好我刚把 Sw">
+
+学习笔记 二 之《Objective-C高级编程 iOS与OS X多线程和内存管理》
+
+第一章：自动引用计数ARC 规则
+ARC 所有权修饰符：
+
+__strong：
+  对对象强引用，变量超出其作用域时被废弃，强引用失效，对象也随之释放（id 类型和对象类型默认为 __strong 修饰符）
+
+__weak：">
   
   
     <link rel="icon" href="/favicon.png">
@@ -206,11 +230,11 @@ var _hmt = _hmt || [];
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-Storyboard复杂-UI-处理汇总" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-ARC规则" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/01/08/Storyboard复杂-UI-处理汇总/" class="article-date">
-  	<time datetime="2016-01-08T08:47:21.000Z" itemprop="datePublished">2016-01-08</time>
+      <a href="/2016/03/17/ARC规则/" class="article-date">
+  	<time datetime="2016-03-17T08:49:05.000Z" itemprop="datePublished">2016-03-17</time>
 </a>
     </div>
   
@@ -223,7 +247,7 @@ var _hmt = _hmt || [];
         
   
     <h1 class="article-title" itemprop="name">
-      Storyboard复杂 UI 处理汇总
+      ARC规则
     </h1>
   
 
@@ -232,7 +256,7 @@ var _hmt = _hmt || [];
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Storyboard/">Storyboard</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UIScrollView/">UIScrollView</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Objective-C高级编程-iOS与OS-X多线程和内存管理/">Objective-C高级编程 iOS与OS X多线程和内存管理</a></li></ul>
 	</div>
 
         
@@ -248,17 +272,161 @@ var _hmt = _hmt || [];
     <div class="article-entry" itemprop="articleBody">
       
         <p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
-<p>当我们在用 Storyboard 设计一些复杂的 UI 时，总觉得不是很好处理，约束不太容易正确添加。以下是我在这方面遇到的一些问题及找到的处理方法：</p>
-<h3 id="u5728UIScrollView_u4E2D_u5D4C_u5957_u591A_u4E2ATableView_3A"><a href="#u5728UIScrollView_u4E2D_u5D4C_u5957_u591A_u4E2ATableView_3A" class="headerlink" title="在UIScrollView中嵌套多个TableView:"></a>在UIScrollView中嵌套多个TableView:</h3><p><a href="http://www.jianshu.com/p/bad9bde9b81e" target="_blank" rel="external">http://www.jianshu.com/p/bad9bde9b81e</a><br>文中 demo 是基于 Swift 语言做的（还好我刚把 Swift 语法看完，能看懂 demo.😉）</p>
+<blockquote>
+<p>学习笔记 二 之《Objective-C高级编程 iOS与OS X多线程和内存管理》</p>
+</blockquote>
+<h5 id="u7B2C_u4E00_u7AE0_uFF1A_u81EA_u52A8_u5F15_u7528_u8BA1_u6570"><a href="#u7B2C_u4E00_u7AE0_uFF1A_u81EA_u52A8_u5F15_u7528_u8BA1_u6570" class="headerlink" title="第一章：自动引用计数"></a>第一章：自动引用计数</h5><p><strong>ARC 规则</strong></p>
+<p><code>ARC 所有权修饰符：</code></p>
+<ul>
+<li><p>__strong：</p>
+<p>  对对象强引用，变量超出其作用域时被废弃，强引用失效，对象也随之释放（id 类型和对象类型默认为 __strong 修饰符）</p>
+</li>
+<li><p>__weak：</p>
+</li>
+</ul>
 <a id="more"></a>
-<p><br></p>
-<font color="brown"><strong>对其补充：</strong></font>
+<pre><code>在持有某对象的弱引用时，若对象被废弃，则此弱引用将自动失效且处于nil 被赋值的状态（空弱引用）。只能用于 iOS5 和 OS X Lion 以上版本，以下可使用 __unsafe_unretained 修饰符来代替。 
+</code></pre><ul>
+<li><p>__unsafe_unretained：</p>
+<p>  被修饰的变量不属于编译器的内存管理对象，是 __weak 的代替</p>
+</li>
+<li><p>__autoreleasing：</p>
+<p>  @autoreleasepool 块代替 NSAutoreleasePool 类对象生成，持有，废弃这一范围</p>
+<p>  __autoreleasing 修饰符 等价于在 ARC 无效时调用对象的 autorelease 方法</p>
+<p>  编译器会检查方法名是否是以 alloc/new/copy/mutableCopy 开始，不是，则自动将返回值得对象注册到 autoreleasepool</p>
+<p>  访问 __weak 修饰符的变量时必须访问注册到 autoreleasepool 的对象</p>
+<p>  id 的指针或对象的指针会默认附加上 __autoreleasing 修饰符</p>
+<p>  赋值给对象指针时，所有权修饰符必须一致：</p>
+<pre><code>NSError *error = nil;
+NSError * __strong *pError = &amp;error;
 
-<p>若是页面需要导航栏，第一次进入页面时，第一个 table 会下陷64个像素，上下滑动列表后，回到导航条下面的位置。而第二个table 从最上面向下拉时，scorllview 显示偏移 x = 0 的的位置。<br>在代码中添加以下代码，可解决这些问题<br><br></p>
-<font color="green"><strong>解决方案：</strong></font>
+NSError _weak *error = nil;
+NSError * __weak *pError = &amp;error;
+</code></pre><p>  NSRunLoop 等实现不论 ARC 有效还是无效，均能够随时释放注册到 autoreleasepool 中的对象。</p>
+<p>  ARC 无效时 @autoreleasepool 块 _objc_autoreleasePoolPrint() 均能使用。</p>
+</li>
+</ul>
+<p><code>ARC 规则：</code>    </p>
+<ul>
+<li><p>不能使用 retain/release/retainCount/autorelease：</p>
+<p>  内存管理是编译器的工作</p>
+</li>
+<li><p>不能使用 NSAllocateObject/NSDeallocateObject</p>
+</li>
+<li><p>需遵守内存管理的方法命名规则：</p>
+<p>  init 开始的方法返回的对象并不注册到autoreleasepool 上</p>
+<p>  init 方法返回的对象应为 id 类型或该方法声明类的对象类型，或者是该类的超类型或子类型</p>
+</li>
+<li><p>不要显式调用 dealloc</p>
+</li>
+<li>使用 @autoreleasepool 块替代 NSAutoreleasePool</li>
+<li><p>不能使用区域（NSZone）：</p>
+<p>  不管 ARC 是否有效，区域在现在的运行时系统中已单纯的被忽略</p>
+</li>
+<li><p>对象型变量不能作为 C 语言结构体（struct/union）的成员：</p>
+<p>  要把对象型变量加入到结构体成员中时，可强制转换为 void * 或者是附加 __unsafe_unretained 修饰符</p>
+<pre><code>struct Data {
+    NSMutableArray __unsafe_unretained *array;
+};
+</code></pre></li>
+<li><p>显式转换 “id” 和 “void *”</p>
+<p>  在 ARC 无效时，将 void * 变量赋值给 id 变量，调用其实例方法，运行时不会有问题</p>
+<pre><code>//ARC 无效
+id obj = [[NSObject alloc] init];
+void *p = obj;
+id o = p;
+[o release];
+</code></pre><p>  在 ARC 有效时，上面的代码会引起编译错误。id 型或对象型变量赋值给 void * 或者逆向赋值时都需要进行特定的转换。如果只想单纯地赋值，则可以使用 “__bridge 转换”</p>
+<pre><code>id obj = [[NSObject alloc] init];
+void *p = (__bridge void *)obj;
+id o = (__bridge id)p;
+</code></pre><p>  转换为 void * 的 <strong>bridge 转换，其安全性与赋值给 </strong>unsafe_unretained 修饰符相近，甚至更低。如果管理时不注意赋值对象的所有者，就会因悬垂指针而导致程序崩溃。</p>
+<p>  <strong>bridge 转换中还有 “</strong>bridge_retained 转换” 和 “__bridge_transfer转换”</p>
+<ul>
+<li>__bridge_retained 使要转换赋值的变量也持有所赋值的对象， 与retain 相似</li>
+<li>__bridge_transfer 与上面的相反，被转换的变量所持有的对象在该变量被赋值给转换目标变量后随之释放，与 release 相似</li>
+</ul>
+</li>
+</ul>
+<pre><code>Objective-C 对象和 Core Foundation 对象，后者主要使用在用 C 语言编写的 Core Foundation 框架中，使用引用计数的对象。两者区别很小，不同之处只在于由哪一个框架所生成。一旦生成，便能在不同的框架中使用。
 
-<pre><code>self.edgesForExtendedLayout = UIRectEdgeNone
-</code></pre>
+
+    CFMutableArrayRef cgObject = NULL;
+    {
+        id obj = [[NSMutableArray alloc] init];
+        cfObject = CFBridgeRetain(obj);
+        CFShow(cfObject);
+        printf(&quot;retain count = %d\n&quot;,CFGetRetainCount(cfObject));// 2
+    }
+    printf(&quot;retain count after scope = %d\n&quot;,CFGetRetainCount(cfObject));// 1
+    CFRelease（cfObject）;
+
+__bridge_retained 转换 可以代替 CFBridgeRetain，当然，__bridge_transfer 转换也可以替代 CFBridgeRelease
+</code></pre><p><code>属性：</code></p>
+<table>
+<thead>
+<tr>
+<th>属性声明的属性</th>
+<th>所有权修饰符      </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> assin</td>
+<td>__unsafe_unretained 修饰符      </td>
+</tr>
+<tr>
+<td> copy</td>
+<td>__strong 修饰符（但是赋值的是被复制的对象）</td>
+</tr>
+<tr>
+<td> retain</td>
+<td>__strong 修饰符</td>
+</tr>
+<tr>
+<td> strong</td>
+<td>__strong 修饰符</td>
+</tr>
+<tr>
+<td> unsafe_unretained</td>
+<td>__unsafe_unretained 修饰符</td>
+</tr>
+<tr>
+<td> weak</td>
+<td>__weak 修饰符</td>
+</tr>
+</tbody>
+</table>
+<p>声明类成员变量时，如果同属性声明中的属性不一致，则会引起编译错误，如：</p>
+<pre><code>// 错误
+id obj;
+@property (nonatomic, weak) id obj;
+
+
+// 正确
+id __weak obj;
+@property (nonatomic, weak) id obj;
+
+// 正确
+id obj;
+@property (nonatomic, strong) id obj;
+</code></pre><p><code>数组：</code></p>
+<p>数组超出其变量作用域时，数组中各个附有 __strong 修饰符的变量也随之失效，其强引用消失，对象随之释放。</p>
+<ul>
+<li>calloc 函数分配内存会使分配区域初始化为0</li>
+<li>malloc 函数分配内存后区域没有被初始化0，可用 memset 等函数将内存填充为 0 </li>
+</ul>
+<p><code>ARC 的实现：</code></p>
+<p>ARC 是由编译器进行内存管理，但是需要 Objective-C 运行时库的协助</p>
+<ul>
+<li>clang(LLVM 编译器)3.0 以上</li>
+<li>objc4 Objective-C 运行时库 493.9 以上</li>
+</ul>
+<p>以下内容待学</p>
+<p><code>__strong 修饰符：</code></p>
+<p><code>__weak 修饰符：</code></p>
+<p><code>__autoreleasing 修饰符：</code></p>
+
       
     </div>
     
@@ -267,18 +435,9 @@ var _hmt = _hmt || [];
     
 <nav id="article-nav">
   
-    <a href="/2016/02/22/提交开发效率的工具和插件/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          提交开发效率的工具和插件
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/12/23/2016年计划/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">2016年计划</div>
+    <a href="/2016/03/15/内存管理和引用计数/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">内存管理和引用计数</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -313,7 +472,7 @@ var _hmt = _hmt || [];
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="Storyboard复杂-UI-处理汇总" data-title="Storyboard复杂 UI 处理汇总" data-url="http://yoursite.com/2016/01/08/Storyboard复杂-UI-处理汇总/"></div>
+	<div class="ds-thread" data-thread-key="ARC规则" data-title="ARC规则" data-url="http://yoursite.com/2016/03/17/ARC规则/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

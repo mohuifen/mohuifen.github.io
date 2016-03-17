@@ -5,7 +5,7 @@
   <subtitle><![CDATA[iOS 开发]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com//"/>
-  <updated>2016-03-15T09:51:57.000Z</updated>
+  <updated>2016-03-17T09:11:55.000Z</updated>
   <id>http://yoursite.com//</id>
   
   <author>
@@ -14,6 +14,191 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[ARC规则]]></title>
+    <link href="http://yoursite.com/2016/03/17/ARC%E8%A7%84%E5%88%99/"/>
+    <id>http://yoursite.com/2016/03/17/ARC规则/</id>
+    <published>2016-03-17T08:49:05.000Z</published>
+    <updated>2016-03-17T09:11:55.000Z</updated>
+    <content type="html"><![CDATA[<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
+<blockquote>
+<p>学习笔记 二 之《Objective-C高级编程 iOS与OS X多线程和内存管理》</p>
+</blockquote>
+<h5 id="u7B2C_u4E00_u7AE0_uFF1A_u81EA_u52A8_u5F15_u7528_u8BA1_u6570"><a href="#u7B2C_u4E00_u7AE0_uFF1A_u81EA_u52A8_u5F15_u7528_u8BA1_u6570" class="headerlink" title="第一章：自动引用计数"></a>第一章：自动引用计数</h5><p><strong>ARC 规则</strong></p>
+<p><code>ARC 所有权修饰符：</code></p>
+<ul>
+<li><p>__strong：</p>
+<p>  对对象强引用，变量超出其作用域时被废弃，强引用失效，对象也随之释放（id 类型和对象类型默认为 __strong 修饰符）</p>
+</li>
+<li><p>__weak：</p>
+</li>
+</ul>
+<a id="more"></a>
+<pre><code>在持有某对象的弱引用时，若对象被废弃，则此弱引用将自动失效且处于nil 被赋值的状态（空弱引用）。只能用于 iOS5 和 OS X Lion 以上版本，以下可使用 __unsafe_unretained 修饰符来代替。 
+</code></pre><ul>
+<li><p>__unsafe_unretained：</p>
+<p>  被修饰的变量不属于编译器的内存管理对象，是 __weak 的代替</p>
+</li>
+<li><p>__autoreleasing：</p>
+<p>  @autoreleasepool 块代替 NSAutoreleasePool 类对象生成，持有，废弃这一范围</p>
+<p>  __autoreleasing 修饰符 等价于在 ARC 无效时调用对象的 autorelease 方法</p>
+<p>  编译器会检查方法名是否是以 alloc/new/copy/mutableCopy 开始，不是，则自动将返回值得对象注册到 autoreleasepool</p>
+<p>  访问 __weak 修饰符的变量时必须访问注册到 autoreleasepool 的对象</p>
+<p>  id 的指针或对象的指针会默认附加上 __autoreleasing 修饰符</p>
+<p>  赋值给对象指针时，所有权修饰符必须一致：</p>
+<pre><code>NSError *error = nil;
+NSError * __strong *pError = &amp;error;
+
+NSError _weak *error = nil;
+NSError * __weak *pError = &amp;error;
+</code></pre><p>  NSRunLoop 等实现不论 ARC 有效还是无效，均能够随时释放注册到 autoreleasepool 中的对象。</p>
+<p>  ARC 无效时 @autoreleasepool 块 _objc_autoreleasePoolPrint() 均能使用。</p>
+</li>
+</ul>
+<p><code>ARC 规则：</code>    </p>
+<ul>
+<li><p>不能使用 retain/release/retainCount/autorelease：</p>
+<p>  内存管理是编译器的工作</p>
+</li>
+<li><p>不能使用 NSAllocateObject/NSDeallocateObject</p>
+</li>
+<li><p>需遵守内存管理的方法命名规则：</p>
+<p>  init 开始的方法返回的对象并不注册到autoreleasepool 上</p>
+<p>  init 方法返回的对象应为 id 类型或该方法声明类的对象类型，或者是该类的超类型或子类型</p>
+</li>
+<li><p>不要显式调用 dealloc</p>
+</li>
+<li>使用 @autoreleasepool 块替代 NSAutoreleasePool</li>
+<li><p>不能使用区域（NSZone）：</p>
+<p>  不管 ARC 是否有效，区域在现在的运行时系统中已单纯的被忽略</p>
+</li>
+<li><p>对象型变量不能作为 C 语言结构体（struct/union）的成员：</p>
+<p>  要把对象型变量加入到结构体成员中时，可强制转换为 void * 或者是附加 __unsafe_unretained 修饰符</p>
+<pre><code>struct Data {
+    NSMutableArray __unsafe_unretained *array;
+};
+</code></pre></li>
+<li><p>显式转换 “id” 和 “void *”</p>
+<p>  在 ARC 无效时，将 void * 变量赋值给 id 变量，调用其实例方法，运行时不会有问题</p>
+<pre><code>//ARC 无效
+id obj = [[NSObject alloc] init];
+void *p = obj;
+id o = p;
+[o release];
+</code></pre><p>  在 ARC 有效时，上面的代码会引起编译错误。id 型或对象型变量赋值给 void * 或者逆向赋值时都需要进行特定的转换。如果只想单纯地赋值，则可以使用 “__bridge 转换”</p>
+<pre><code>id obj = [[NSObject alloc] init];
+void *p = (__bridge void *)obj;
+id o = (__bridge id)p;
+</code></pre><p>  转换为 void * 的 <strong>bridge 转换，其安全性与赋值给 </strong>unsafe_unretained 修饰符相近，甚至更低。如果管理时不注意赋值对象的所有者，就会因悬垂指针而导致程序崩溃。</p>
+<p>  <strong>bridge 转换中还有 “</strong>bridge_retained 转换” 和 “__bridge_transfer转换”</p>
+<ul>
+<li>__bridge_retained 使要转换赋值的变量也持有所赋值的对象， 与retain 相似</li>
+<li>__bridge_transfer 与上面的相反，被转换的变量所持有的对象在该变量被赋值给转换目标变量后随之释放，与 release 相似</li>
+</ul>
+</li>
+</ul>
+<pre><code>Objective-C 对象和 Core Foundation 对象，后者主要使用在用 C 语言编写的 Core Foundation 框架中，使用引用计数的对象。两者区别很小，不同之处只在于由哪一个框架所生成。一旦生成，便能在不同的框架中使用。
+
+
+    CFMutableArrayRef cgObject = NULL;
+    {
+        id obj = [[NSMutableArray alloc] init];
+        cfObject = CFBridgeRetain(obj);
+        CFShow(cfObject);
+        printf(&quot;retain count = %d\n&quot;,CFGetRetainCount(cfObject));// 2
+    }
+    printf(&quot;retain count after scope = %d\n&quot;,CFGetRetainCount(cfObject));// 1
+    CFRelease（cfObject）;
+
+__bridge_retained 转换 可以代替 CFBridgeRetain，当然，__bridge_transfer 转换也可以替代 CFBridgeRelease
+</code></pre><p><code>属性：</code></p>
+<table>
+<thead>
+<tr>
+<th>属性声明的属性</th>
+<th>所有权修饰符      </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> assin</td>
+<td>__unsafe_unretained 修饰符      </td>
+</tr>
+<tr>
+<td> copy</td>
+<td>__strong 修饰符（但是赋值的是被复制的对象）</td>
+</tr>
+<tr>
+<td> retain</td>
+<td>__strong 修饰符</td>
+</tr>
+<tr>
+<td> strong</td>
+<td>__strong 修饰符</td>
+</tr>
+<tr>
+<td> unsafe_unretained</td>
+<td>__unsafe_unretained 修饰符</td>
+</tr>
+<tr>
+<td> weak</td>
+<td>__weak 修饰符</td>
+</tr>
+</tbody>
+</table>
+<p>声明类成员变量时，如果同属性声明中的属性不一致，则会引起编译错误，如：</p>
+<pre><code>// 错误
+id obj;
+@property (nonatomic, weak) id obj;
+
+
+// 正确
+id __weak obj;
+@property (nonatomic, weak) id obj;
+
+// 正确
+id obj;
+@property (nonatomic, strong) id obj;
+</code></pre><p><code>数组：</code></p>
+<p>数组超出其变量作用域时，数组中各个附有 __strong 修饰符的变量也随之失效，其强引用消失，对象随之释放。</p>
+<ul>
+<li>calloc 函数分配内存会使分配区域初始化为0</li>
+<li>malloc 函数分配内存后区域没有被初始化0，可用 memset 等函数将内存填充为 0 </li>
+</ul>
+<p><code>ARC 的实现：</code></p>
+<p>ARC 是由编译器进行内存管理，但是需要 Objective-C 运行时库的协助</p>
+<ul>
+<li>clang(LLVM 编译器)3.0 以上</li>
+<li>objc4 Objective-C 运行时库 493.9 以上</li>
+</ul>
+<p>以下内容待学</p>
+<p><code>__strong 修饰符：</code></p>
+<p><code>__weak 修饰符：</code></p>
+<p><code>__autoreleasing 修饰符：</code></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
+<blockquote>
+<p>学习笔记 二 之《Objective-C高级编程 iOS与OS X多线程和内存管理》</p>
+</blockquote>
+<h5 id="u7B2C_u4E00_u7AE0_uFF1A_u81EA_u52A8_u5F15_u7528_u8BA1_u6570"><a href="#u7B2C_u4E00_u7AE0_uFF1A_u81EA_u52A8_u5F15_u7528_u8BA1_u6570" class="headerlink" title="第一章：自动引用计数"></a>第一章：自动引用计数</h5><p><strong>ARC 规则</strong></p>
+<p><code>ARC 所有权修饰符：</code></p>
+<ul>
+<li><p>__strong：</p>
+<p>  对对象强引用，变量超出其作用域时被废弃，强引用失效，对象也随之释放（id 类型和对象类型默认为 __strong 修饰符）</p>
+</li>
+<li><p>__weak：</p>
+</li>
+</ul>]]>
+    
+    </summary>
+    
+      <category term="Objective-C高级编程 iOS与OS X多线程和内存管理" scheme="http://yoursite.com/tags/Objective-C%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B-iOS%E4%B8%8EOS-X%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/"/>
+    
+      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[内存管理和引用计数]]></title>
@@ -615,7 +800,7 @@ self.surplusHeightLayout.constant = 45;
     <link href="http://yoursite.com/2015/11/20/Bug-%E5%B0%8F%E8%AE%B0%EF%BC%88%E8%B4%B5%E9%87%91%E5%B1%9E%EF%BC%89/"/>
     <id>http://yoursite.com/2015/11/20/Bug-小记（贵金属）/</id>
     <published>2015-11-20T03:13:33.000Z</published>
-    <updated>2016-03-15T10:20:49.000Z</updated>
+    <updated>2016-03-15T11:52:10.000Z</updated>
     <content type="html"><![CDATA[<p><strong>作者：秋儿（lvruifei@foxmail.com）</strong></p>
 <p>最近在修复 APP 的 Bug，遇到了几个因对 SDK 不熟 造成的 Bug。如下：<br><br></p>
 <a id="more"></a>
@@ -656,7 +841,7 @@ dispatch_resume(_timer);
 </code></pre><p>关键在于这行代码。设置了禁用状态下的文字。顺利解决了 这个 Bug。<br><br></p>
 <p><strong>Bug2：倒计时 UIButton 上的文字变更会有闪烁效果</strong></p>
 <p>UIButton 设置 title时会闪烁。</p>
-<font color="brown"><strong>原因：</strong></font>UIButton 的 buttonType 是 System 类型时会出现该种问题<br><br><font color="green"><strong>解决方案：</strong></font>UIButton 的 buttonType 设置为 Custom 类型时不会出现闪烁。<br><br><br><br><strong>Bug3：在工程中添加plist 文件，用代码对其进行写入操作，在模拟器中按代码执行，但在真机上plist中内容未改变</strong><br><br>plist 文件中是一个数组，元素是多个字典，在模拟器上运行一切正常，但测试人员用真机测试时发现问题，无法写入到 plist 文件中。<br><br><font color="brown"><strong>原因：</strong></font> 打包在 ipa 的文件是无法更改的。一句话：无权限修改（知道真相的我眼泪掉下来~)，只可进行读取操作。<br><br><font color="green"><strong>解决方案：</strong></font>在 app 启动的时候判断是否在 Document 文件夹下存在相同的 plsit 文件。 不存在，获取沙盒下 plist 文件中的内容，并写入Document 文件夹下的 plsit 文件。存在则不做任何处理。（之所以选择这种方式而不选择直接将内容用代码写入 Document 文件夹下来解决这个问题，是因为个人认为在开发时方便对工程中plsit 文件内容的更改）<br><br><br><br><font color="pink"><strong>更新时间：2016年1月20日</strong></font>
+<font color="brown"><strong>原因：</strong></font>UIButton 的 buttonType 是 System 类型时会出现该种问题<br><br><font color="green"><strong>解决方案：</strong></font>UIButton 的 buttonType 设置为 Custom 类型时不会出现闪烁。<br><br><br><br><strong>Bug3：在工程中添加plist 文件，用代码对其进行写入操作，在模拟器中按代码执行，但在真机上plist中内容未改变</strong><br><br>plist 文件中是一个数组，元素是多个字典，在模拟器上运行一切正常，但测试人员用真机测试时发现问题，无法写入到 plist 文件中。<br><br><font color="brown"><strong>原因：</strong></font> 打包在 ipa 的文件是无法更改的。一句话：无权限修改（知道真相的我眼泪掉下来~)，只可进行读取操作。<br><br><font color="green"><strong>解决方案：</strong></font>在 app 启动的时候判断是否在 Document 文件夹下存在相同的 plsit 文件。 不存在，获取沙盒下 plist 文件中的内容，并写入Document 文件夹下的 plsit 文件。存在则不做任何处理。（之所以选择这种方式而不选择直接将内容用代码写入 Document 文件夹下来解决这个问题，是因为个人认为在开发时方便对工程中plsit 文件内容的更改）<br><br><br><br><font color="pinkw"><strong>更新时间：2016年1月20日</strong></font>
 
 <p><strong>Bug1：进入某个页面，App崩溃，崩溃原因是：[NSCFType set]: unrecognized selector sent to instance 0x4d80b00’</strong></p>
 <font color="brown"><strong>原因：</strong></font> 在新页面使用了NSMutableAttributedString，使用方式导致了崩溃，目前无法解释，使用方法如下：<br><br><br><code>NSMutableAttributedString *attriString =     [[NSMutableAttributedString alloc] initWithString:prodNameStr];
