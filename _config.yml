@@ -70,13 +70,13 @@ theme: yilia
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
-  type: git
-  repository:  https://github.com/mohuifen/mohuifen.github.io.git
-  branch: master
+  # type: git
+  # repository:  https://github.com/mohuifen/mohuifen.github.io.git
+  # branch: master
 
-  type: git
-  repository: git@gitcafe.com:mohuifen/mohuifen.git
-  branch: gitcafe-pages
+  # type: git
+  # repository: git@gitcafe.com:mohuifen/mohuifen.git
+  # branch: gitcafe-pages
 
   type: git
   repo: https://git.coding.net/lrf/mohuifen.git
